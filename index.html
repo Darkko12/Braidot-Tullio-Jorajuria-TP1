@@ -148,18 +148,19 @@
       align-items: center;
       min-height: 420px;
     }
-    .paulina-photo-placeholder {
+     .paulina-photo-placeholder {
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      width: 240px;
-      height: 320px;
+      width: 320px;
+      height: 360px;
       object-fit: cover;
-      border-radius: 16px;
-      box-shadow: 0 12px 28px rgba(0,0,0,.22);
+      object-position: center top;
+      border-radius: 0;
+      box-shadow: none;
       z-index: 1;
-    }
+    }   
     .starburst {
       position: absolute;
       top: 50%;
@@ -327,8 +328,8 @@
       width: 100%;
     }
     .productor-card {
-      background: var(--salmon);
-      padding: 0 24px 36px;
+     background: var(--salmon);
+      padding: 24px 24px 36px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -337,8 +338,8 @@
       flex: 1;
     }
     .productor-avatar-wrap {
-      margin-top: -48px;
-      margin-bottom: 20px;
+     margin-top: 24px;
+     margin-bottom: 20px;
       width: 120px;
       height: 120px;
       border-radius: 50%;
@@ -765,7 +766,8 @@
       .paulina-photo-placeholder { width: 200px; height: 260px; }
       .sobre-feria-inner { grid-template-columns: 1fr; gap: 36px; }
       .productores-carousel-wrap { padding: 0 48px; }
-      .taller-page { flex-direction: column; gap: 16px; }
+      .taller-page { flex-direction: row; gap: 0; }
+      .taller-card { flex: 0 0 100%; }
       .talleres-carousel { padding: 0 56px; }
       .section-banner { margin: 0 16px; }
       .navbar { padding: 0 20px; }
@@ -915,7 +917,7 @@
 
 
 <div style="padding-top: 40px;">
-  <div class="section-banner" style="max-width: 860px; margin: 0 auto; clip-path: polygon(1.5% 0, 98.5% 0, 97% 100%, 3% 100%);">
+  <div class="section-banner" style="width: 100%; margin: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);">
     <span class="section-banner-text">Nuestros productores</span>
   </div>
 </div>
@@ -1011,7 +1013,7 @@
 
 
 <div style="padding: 48px 0 40px;">
-  <div class="section-banner" style="max-width: 860px; margin: 0 auto; clip-path: polygon(1.5% 0, 98.5% 0, 97% 100%, 3% 100%);">
+  <div class="section-banner" style="width: 100%; margin: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);">
     <span class="section-banner-text">No te quedes sin participar,<br>¡conocé nuestros talleres!</span>
   </div>
 </div>
@@ -1092,7 +1094,7 @@
 </section>
 
 <section class="where-section">
-  <div class="section-banner" style="max-width:860px;margin:0 auto;clip-path:polygon(1.5% 0,98.5% 0,97% 100%,3% 100%);">
+  <div class="section-banner" style="width:100%;margin:0;clip-path:polygon(0 0,100% 0,100% 100%,0 100%);">
     <span class="section-banner-text">¿DÓNDE ESTAMOS?</span>
   </div>
   <div class="map-wrap" style="max-width:900px;margin:32px auto 0;padding:0 40px;">
