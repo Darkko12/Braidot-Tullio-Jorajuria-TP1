@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paulina Cocina: De la huerta a la olla — Edición Especial Sabe la Tierra</title>
+  <title>Paulina Cocina: De la huerta a la olla — Edición Especial "Sabe la Tierra"</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=Inter:wght@400;600;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
       --teal:     #2EC4B6;
       --cream:    #F5EEE4;
       --white:    #FBF6EF;
-      --dark:     #F5EEE4;
+      --dark:     #1A1A1A;
       --mid:      #444;
       --light:    #777;
       --border:   #E5E5E5;
@@ -170,13 +170,13 @@
       z-index: 0;
     }
 
-
-
     /* ── SOBRE LA FERIA ─────────────────────────────────────── */
     .sobre-feria {
-      background: var(--dark);
-      color: #fff;
+      background: var(--cream);
+      color: var(--dark);
       padding: 72px 40px;
+      border-top: 3px solid var(--salmon);
+      border-bottom: 3px solid var(--salmon);
     }
     .sobre-feria-inner {
       max-width: 900px;
@@ -192,7 +192,7 @@
       font-weight: 700;
       letter-spacing: .2em;
       text-transform: uppercase;
-      color: var(--teal);
+      color: var(--red);
       margin-bottom: 16px;
     }
     .sobre-feria-left h2 {
@@ -201,13 +201,13 @@
       font-weight: 400;
       font-size: clamp(28px, 3.5vw, 44px);
       line-height: 1.15;
-      color: #fff;
+      color: var(--dark);
       margin-bottom: 24px;
     }
     .sobre-feria-left p {
       font-size: 16px;
       line-height: 1.8;
-      color: rgba(255,255,255,.75);
+      color: var(--mid);
     }
     .sobre-feria-left p + p { margin-top: 18px; }
 
@@ -217,22 +217,22 @@
       gap: 16px;
       align-items: flex-start;
       padding: 20px 0;
-      border-bottom: 1px solid rgba(255,255,255,.12);
+      border-bottom: 1px solid rgba(0,0,0,.12);
     }
-    .sf-info-row:first-child { border-top: 1px solid rgba(255,255,255,.12); }
+    .sf-info-row:first-child { border-top: 1px solid rgba(0,0,0,.12); }
     .sf-info-emoji { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
     .sf-info-label {
       font-size: 11px;
       font-weight: 700;
       letter-spacing: .12em;
       text-transform: uppercase;
-      color: var(--teal);
+      color: var(--red);
       margin-bottom: 4px;
     }
     .sf-info-value {
       font-size: 15px;
       line-height: 1.5;
-      color: rgba(255,255,255,.85);
+      color: var(--mid);
     }
 
     /* ── ACCORDION ──────────────────────────────────────────── */
@@ -301,13 +301,30 @@
       line-height: 1.7;
       color: var(--mid);
     }
-    .productores-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0;
+
+    /* ─── Carrusel productores — página entera con fade suave ─── */
+    .productores-carousel-wrap {
+      position: relative;
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 40px;
+      padding: 0 64px;
+    }
+    /* El viewport que recorta las páginas */
+    .productores-viewport {
+      overflow: hidden;
+      position: relative;
+    }
+    /* El track que contiene las páginas */
+    .productores-track {
+      display: flex;
+      /* transition gestionado por JS para poder hacer fade */
+    }
+    /* Cada "página" (grupo de 3) */
+    .productor-page {
+      display: flex;
+      gap: 16px;
+      flex: 0 0 100%;
+      width: 100%;
     }
     .productor-card {
       background: var(--salmon);
@@ -316,14 +333,14 @@
       flex-direction: column;
       align-items: center;
       position: relative;
-      margin: 0 8px;
       border-radius: 4px;
+      flex: 1;
     }
     .productor-avatar-wrap {
       margin-top: -48px;
       margin-bottom: 20px;
-      width: 140px;
-      height: 140px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       border: 4px solid var(--dark);
       overflow: hidden;
@@ -331,37 +348,99 @@
       flex-shrink: 0;
     }
     .productor-avatar-wrap img { width: 100%; height: 100%; object-fit: cover; }
-    .productor-cat { font-size: 11px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--dark); margin-bottom: 6px; }
-    .productor-name { font-size: 18px; font-weight: 400; color: var(--dark); text-align: center; margin-bottom: 24px; line-height: 1.3; }
-    .btn-conocelo {
-      background: transparent;
-      border: 2px solid var(--dark);
-      color: var(--dark);
-      padding: 11px 28px;
-      border-radius: 4px;
-      font-family: var(--font-main);
-      font-size: 14px;
+    .productor-cat {
+      font-size: 12px;
       font-weight: 700;
-      cursor: pointer;
-      letter-spacing: .04em;
-      transition: background .2s, color .2s;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--dark);
+      margin-bottom: 10px;
+      text-align: center;
     }
-    .btn-conocelo:hover { background: var(--dark); color: #fff; }
+    .productor-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--dark);
+      text-align: center;
+      margin-bottom: 28px;
+      line-height: 1.2;
+      min-height: 58px;
+      flex: 1;
+    }
+    .prod-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      background: var(--red);
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #fff;
+      font-size: 20px;
+      transition: background .2s;
+      z-index: 10;
+    }
+    .prod-arrow:hover { background: var(--red-dark); }
+    .prod-arrow.prev { left: 8px; }
+    .prod-arrow.next { right: 8px; }
+    .prod-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 28px;
+    }
+    .prod-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      border: none;
+      cursor: pointer;
+      transition: background .3s, transform .2s;
+      padding: 0;
+    }
+    .prod-dot.active { background: var(--red); transform: scale(1.3); }
 
     /* ── TALLERES ────────────────────────────────────────────── */
     .talleres-section { padding: 60px 0; }
-    .talleres-carousel { position: relative; max-width: 1100px; margin: 0 auto; padding: 0 80px; }
-    .talleres-track-wrap { overflow: hidden; border-radius: 4px; }
-    .talleres-track { display: flex; transition: transform .45s cubic-bezier(.25,.46,.45,.94); }
+
+    /* ─── Carrusel talleres — muestra de a 2 ─── */
+    .talleres-carousel {
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 80px;
+    }
+    /* viewport fijo */
+    .talleres-viewport {
+      overflow: hidden;
+      border-radius: 4px;
+      position: relative;
+    }
+    .talleres-track {
+      display: flex;
+      /* JS maneja la transición */
+    }
+    /* par de cards en desktop */
+    .taller-page {
+      display: flex;
+      gap: 24px;
+      flex: 0 0 100%;
+      width: 100%;
+      align-items: flex-start;
+    }
     .taller-card {
-      flex: 0 0 calc(50% - 12px);
-      margin-right: 24px;
+      flex: 1;
       background: var(--salmon);
       border-radius: 4px;
       overflow: hidden;
       cursor: pointer;
     }
-    .taller-card:last-child { margin-right: 0; }
     .taller-img-wrap { position: relative; border: 6px solid var(--salmon); border-bottom: none; }
     .taller-img-wrap img { width: 100%; height: 220px; object-fit: cover; display: block; }
     .taller-body { padding: 18px 24px 0; }
@@ -478,10 +557,10 @@
       cursor: pointer;
       letter-spacing: .03em;
       transition: background .2s, transform .15s;
+      margin-bottom: 36px;
     }
     .btn-cta-big:hover { background: var(--red-dark); transform: translateY(-2px); }
     .cta-note {
-      margin-top: 16px;
       font-size: 12px;
       color: var(--light);
       letter-spacing: .03em;
@@ -685,10 +764,9 @@
       .starburst { width: 260px; height: 260px; }
       .paulina-photo-placeholder { width: 200px; height: 260px; }
       .sobre-feria-inner { grid-template-columns: 1fr; gap: 36px; }
-      .productores-grid { grid-template-columns: 1fr; gap: 64px; padding: 0 24px; }
-      .productor-card { margin: 0; }
+      .productores-carousel-wrap { padding: 0 48px; }
+      .taller-page { flex-direction: column; gap: 16px; }
       .talleres-carousel { padding: 0 56px; }
-      .taller-card { flex: 0 0 calc(100% - 0px); margin-right: 0; }
       .section-banner { margin: 0 16px; }
       .navbar { padding: 0 20px; }
       .footer { padding: 48px 20px 28px; }
@@ -698,7 +776,8 @@
       .modal-body { padding: 24px 24px 28px; }
       .sobre-feria { padding: 52px 24px; }
       .cta-banner { padding: 52px 24px; }
-
+      /* En mobile: 1 card por página en productores */
+      .productor-page { flex-direction: column; gap: 16px; }
     }
     @media (max-width: 560px) {
       .hero-title { font-size: 36px; }
@@ -725,7 +804,7 @@
     <div>
       <span class="edition-badge">
         <span class="edition-badge-dot"></span>
-        Edición especial · Feria Sabe la Tierra
+        Edición especial · Feria "Sabe la Tierra"
       </span>
     </div>
     <h1 class="hero-title">De la huerta a la olla</h1>
@@ -736,7 +815,7 @@
     <div>
       <div class="hero-text">
         <p>
-          <strong>¡Este 24 y 25 de julio</strong> no te perdas la oportunidad de hablar en persona con Paulina Cocina y que firme tu libro en la edición especial de la feria Sabe la Tierra.
+          <strong>¡Este 24 y 25 de julio</strong> no te perdas la oportunidad de hablar en persona con Paulina Cocina y que firme tu libro en la edición especial de la feria "Sabe la Tierra".
         </p>
         <p>
           Solo tenés que apretar el botón y completar tus datos. Eso sí: <strong>cupos limitados</strong>, así que no le des muchas vueltas.
@@ -761,21 +840,17 @@
   </div>
 </section>
 
-
-
 <!-- ── SECCIÓN 2: SOBRE LA FERIA ────────────────────────────── -->
 <section class="sobre-feria">
   <div class="sobre-feria-inner">
     <div class="sobre-feria-left">
       <div class="sf-eyebrow">¿Qué es esto?</div>
-      <h2>La feria Sabe la Tierra, en edición especial con Paulina</h2>
+      <h2>La feria "Sabe la Tierra", en edición especial con Paulina</h2>
       <p>
-        <!-- NOTA: Completar con texto de presentación de la feria Sabe la Tierra -->
-        [TEXTO — Contá qué es la feria Sabe la Tierra, cuánto tiempo lleva, qué la hace especial, su propuesta de productores agroecológicos, etc.]
+        Desde hace 14 años, este mercado es el punto de encuentro referente del consumo responsable. Su propuesta une a productores agroecológicos con la comunidad, ofreciendo alimentos libres de químicos y productos sustentables bajo los valores del comercio justo y el respeto por la tierra.
       </p>
       <p style="margin-top:18px;">
-        <!-- NOTA: Completar con el rol/vínculo de Paulina con la feria -->
-        [TEXTO — Explicá por qué Paulina participa, qué tiene que ver con la comunidad de la feria y qué va a hacer puntualmente: firma de libros, charla, etc.]
+        Con su estilo práctico y real, Paulina Cocina llega a la feria para celebrar la cocina consciente. Participará de una charla abierta sobre alimentación saludable y cerrará la jornada con una firma de libros, compartiendo cara a cara con quienes buscan comer mejor cada día.
       </p>
     </div>
     <div class="sobre-feria-right">
@@ -790,7 +865,7 @@
         <div class="sf-info-emoji">📍</div>
         <div>
           <div class="sf-info-label">Lugar</div>
-          <div class="sf-info-value">Mercado Sabe la Tierra<br>Parque Rivadavia, Buenos Aires</div>
+          <div class="sf-info-value">Mercado "Sabe la Tierra"<br>Parque Rivadavia, Buenos Aires</div>
         </div>
       </div>
       <div class="sf-info-row">
@@ -811,14 +886,14 @@
         <div class="sf-info-emoji">🎟️</div>
         <div>
           <div class="sf-info-label">Reserva</div>
-          <div class="sf-info-value">Cupos limitados — confirmación por email a <strong style="color:var(--teal);">hola@paulinacocina.net</strong></div>
+          <div class="sf-info-value">Cupos limitados — confirmación por email.</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── SECCIÓN 3: ACCORDION — Más info ──────────────────────── -->
+
 <div class="accordion-section" style="padding-top: 40px;">
   <div class="accordion-item">
     <button class="accordion-trigger" id="acc1-btn" onclick="toggleAccordion('acc1')" aria-expanded="false">
@@ -827,145 +902,195 @@
     </button>
     <div class="accordion-body" id="acc1">
       <div class="accordion-body-inner">
-        <p>Completá el formulario con tus datos. Una vez enviado, vas a recibir un email de confirmación a la dirección que indiques, desde <strong>hola@paulinacocina.net</strong>. Ese mail es tu comprobante de reserva — guardalo para presentar en el evento.</p>
+        <p>Completá el formulario con tus datos. Una vez enviado, vas a recibir un email de confirmación a la dirección que indicaste. Ese mail es tu comprobante de reserva, guardalo para presentar en el evento.</p>
         <ul>
-          <li>🎟️ La reserva es para acceder al espacio de firma con Paulina. La entrada a la feria es libre y gratuita.</li>
-          <li>📌 Si no recibís el mail en 24 horas, revisá tu carpeta de spam o escribinos a hola@paulinacocina.net</li>
-          <li>⚠️ Los cupos son limitados y se asignan por orden de llegada.</li>
+          <li> La reserva es para acceder al espacio de firma con Paulina. La entrada a la feria es libre y gratuita.</li>
+          <li> Si no recibís el mail en 24 horas, revisá tu carpeta de spam o escribinos en nuestra sección de contacto.</li>
+          <li> Los cupos son limitados y se asignan por orden de llegada.</li>
         </ul>
       </div>
     </div>
   </div>
-
 </div>
 
-<!-- BANNER PRODUCTORES -->
+
 <div style="padding-top: 40px;">
   <div class="section-banner" style="max-width: 860px; margin: 0 auto; clip-path: polygon(1.5% 0, 98.5% 0, 97% 100%, 3% 100%);">
     <span class="section-banner-text">Nuestros productores</span>
   </div>
 </div>
 
-<!-- ── SECCIÓN 4: PRODUCTORES ────────────────────────────────── -->
 <section class="productores-section">
   <div class="productores-intro">
-    Te presentamos a la comunidad de productores y emprendedores del Mercado Sabe la Tierra Parque Rivadavia. Hacé click en cada uno para conocer sus productos.
+    Te presentamos a la comunidad de productores y emprendedores del Mercado "Sabe la Tierra" Parque Rivadavia.
   </div>
   <div style="padding-top: 60px;">
-    <div class="productores-grid">
-      <div class="productor-card">
-        <div class="productor-avatar-wrap">
-          <img src="images/Pasteleria.webp" alt="La Cocina de Paula Picasso" loading="lazy">
+    <div class="productores-carousel-wrap">
+      <button class="prod-arrow prev" id="prodPrev" aria-label="Anterior">‹</button>
+      <div class="productores-viewport" id="productoresViewport">
+        <div class="productores-track" id="productoresTrack">
+
+          <div class="productor-page">
+            <div class="productor-card">
+              <div class="productor-avatar-wrap"><img src="images/Pasteleria.webp" alt="La Cocina de Paula Picasso" loading="lazy"></div>
+              <div class="productor-cat">PASTELERÍA INTEGRAL</div>
+              <div class="productor-name">La Cocina de Paula Picasso</div>
+            </div>
+            <div class="productor-card">
+              <div class="productor-avatar-wrap"><img src="images/Quesos.webp" alt="Alma y Luz Distribución" loading="lazy"></div>
+              <div class="productor-cat">ALMACÉN SALUDABLE</div>
+              <div class="productor-name">Alma y Luz Distribución</div>
+            </div>
+            <div class="productor-card">
+              <div class="productor-avatar-wrap"><img src="images/Secos.webp" alt="Hongo del Norte" loading="lazy"></div>
+              <div class="productor-cat">MIX DE CRUDOS Y COCINADOS</div>
+              <div class="productor-name">Hongo del Norte</div>
+            </div>
+          </div>
+
+          <div class="productor-page">
+            <div class="productor-card">
+              <div class="productor-avatar-wrap"><img src="images/Quesos.webp" alt="No es Soberbia" loading="lazy"></div>
+              <div class="productor-cat">QUESOS Y FIAMBRES AHUMADOS</div>
+              <div class="productor-name">No es Soberbia</div>
+            </div>
+            <div class="productor-card">
+              <div class="productor-avatar-wrap"><img src="images/Pasteleria.webp" alt="Pensando como una Acelga" loading="lazy"></div>
+              <div class="productor-cat">VERDULERÍA AGROECOLÓGICA</div>
+              <div class="productor-name">Pensando como una Acelga</div>
+            </div>
+            <div class="productor-card">
+              <div class="productor-avatar-wrap"><img src="images/Secos.webp" alt="Nandi Alimentos" loading="lazy"></div>
+              <div class="productor-cat">PANIFICADOS DE MASA MADRE</div>
+              <div class="productor-name">Nandi Alimentos</div>
+            </div>
+          </div>
+
+          <div class="productor-page">
+            <div class="productor-card">
+              <div class="productor-avatar-wrap"><img src="images/Pasteleria.webp" alt="El Granero del Sur" loading="lazy"></div>
+              <div class="productor-cat">HARINAS Y GRANOS</div>
+              <div class="productor-name">El Granero del Sur</div>
+            </div>
+            <div class="productor-card">
+              <div class="productor-avatar-wrap"><img src="images/Quesos.webp" alt="Tierra Viva" loading="lazy"></div>
+              <div class="productor-cat">CONSERVAS ARTESANALES</div>
+              <div class="productor-name">Tierra Viva</div>
+            </div>
+            <div class="productor-card">
+              <div class="productor-avatar-wrap"><img src="images/Secos.webp" alt="Raíz Común" loading="lazy"></div>
+              <div class="productor-cat">SEMILLAS Y BROTES</div>
+              <div class="productor-name">Raíz Común</div>
+            </div>
+          </div>
+
+          <div class="productor-page">
+            <div class="productor-card">
+              <div class="productor-avatar-wrap"><img src="images/Pasteleria.webp" alt="La Herboristería" loading="lazy"></div>
+              <div class="productor-cat">HIERBAS Y ESPECIAS</div>
+              <div class="productor-name">La Herboristería</div>
+            </div>
+            <div class="productor-card">
+              <div class="productor-avatar-wrap"><img src="images/Quesos.webp" alt="Manos de la Tierra" loading="lazy"></div>
+              <div class="productor-cat">LÁCTEOS ARTESANALES</div>
+              <div class="productor-name">Manos de la Tierra</div>
+            </div>
+            <div class="productor-card">
+              <div class="productor-avatar-wrap"><img src="images/Secos.webp" alt="Verde Vital" loading="lazy"></div>
+              <div class="productor-cat">SUPERFOODS Y NATURALES</div>
+              <div class="productor-name">Verde Vital</div>
+            </div>
+          </div>
         </div>
-        <div class="productor-cat">PASTELERÍA INTEGRAL</div>
-        <div class="productor-name">La Cocina de Paula Picasso</div>
-        <button class="btn-conocelo">¡CONOCELO!</button>
       </div>
-      <div class="productor-card">
-        <div class="productor-avatar-wrap">
-          <img src="images/Quesos.webp" alt="Alma y Luz Distribución" loading="lazy">
-        </div>
-        <div class="productor-cat">ALMACÉN SALUDABLE</div>
-        <div class="productor-name">Alma y Luz Distribución</div>
-        <button class="btn-conocelo">¡CONOCELO!</button>
-      </div>
-      <div class="productor-card">
-        <div class="productor-avatar-wrap">
-          <img src="images/Secos.webp" alt="Hongo del Norte" loading="lazy">
-        </div>
-        <div class="productor-cat">MIX DE CRUDOS Y COCINADOS</div>
-        <div class="productor-name">Hongo del Norte</div>
-        <button class="btn-conocelo">¡CONOCELO!</button>
-      </div>
+      <button class="prod-arrow next" id="prodNext" aria-label="Siguiente">›</button>
     </div>
+    <div class="prod-dots" id="prodDots"></div>
   </div>
 </section>
 
-<!-- BANNER TALLERES -->
+
 <div style="padding: 48px 0 40px;">
   <div class="section-banner" style="max-width: 860px; margin: 0 auto; clip-path: polygon(1.5% 0, 98.5% 0, 97% 100%, 3% 100%);">
     <span class="section-banner-text">No te quedes sin participar,<br>¡conocé nuestros talleres!</span>
   </div>
 </div>
 
-<!-- ── SECCIÓN 5: TALLERES ────────────────────────────────────── -->
+
 <section class="talleres-section">
   <div class="talleres-carousel">
-    <button class="carousel-arrow prev" onclick="moveCarousel(-1)" aria-label="Anterior">‹</button>
-    <div class="talleres-track-wrap">
+    <button class="carousel-arrow prev" id="tallPrev" aria-label="Anterior">‹</button>
+    <div class="talleres-viewport" id="talleresViewport">
       <div class="talleres-track" id="talleresTrack">
 
-        <div class="taller-card" id="taller-0">
-          <div class="taller-img-wrap">
-            <img src="images/laboratorio.webp" alt="El Laboratorio" loading="lazy">
-          </div>
-          <div class="taller-body">
-            <div class="taller-header" onclick="toggleTaller('taller-0')">
-              <div class="taller-name">El Laboratorio</div>
-              <div class="taller-toggle">+</div>
+        <div class="taller-page">
+          <div class="taller-card" data-taller-id="0">
+            <div class="taller-img-wrap">
+              <img src="images/laboratorio.webp" alt="El Laboratorio" loading="lazy">
             </div>
-            <div class="taller-desc">
-              <!-- NOTA: Completar con descripción del taller El Laboratorio -->
-              [TEXTO — Descripción del taller: qué se hace, duración, a quién está dirigido, si tiene costo extra, etc.]
-            </div>
-          </div>
-        </div>
-
-        <div class="taller-card" id="taller-1">
-          <div class="taller-img-wrap">
-            <img src="images/taller_quesos.webp" alt="Taller de Quesos" loading="lazy">
-          </div>
-          <div class="taller-body">
-            <div class="taller-header" onclick="toggleTaller('taller-1')">
-              <div class="taller-name">Taller de "Quesos" y Untables Veganos</div>
-              <div class="taller-toggle">+</div>
-            </div>
-            <div class="taller-desc">
-              <!-- NOTA: Completar con descripción del taller de Quesos y Untables Veganos -->
-              [TEXTO — Descripción del taller: qué se hace, duración, a quién está dirigido, si tiene costo extra, etc.]
+            <div class="taller-body">
+              <div class="taller-header">
+                <div class="taller-name">El Laboratorio</div>
+                <div class="taller-toggle">+</div>
+              </div>
+              <div class="taller-desc">
+                Un espacio de experimentación creativa donde la ciencia y la cocina se encuentran para transformar ingredientes locales en productos innovadores. Probaremos diferentes procesos y mezclas para entender la química detrás de lo que comemos.
+              </div>
             </div>
           </div>
-        </div>
-
-        <div class="taller-card" id="taller-2">
-          <div class="taller-img-wrap">
-            <img src="images/fermentacion.webp" alt="Taller de Fermentación" loading="lazy">
-          </div>
-          <div class="taller-body">
-            <div class="taller-header" onclick="toggleTaller('taller-2')">
-              <div class="taller-name">Taller de Fermentación Natural</div>
-              <div class="taller-toggle">+</div>
+          <div class="taller-card" data-taller-id="1">
+            <div class="taller-img-wrap">
+              <img src="images/taller_quesos.webp" alt="Taller de Quesos" loading="lazy">
             </div>
-            <div class="taller-desc">
-              <!-- NOTA: Completar con descripción del taller de Fermentación Natural -->
-              [TEXTO — Descripción del taller: qué se hace, duración, a quién está dirigido, si tiene costo extra, etc.]
+            <div class="taller-body">
+              <div class="taller-header">
+                <div class="taller-name">Taller de "Quesos" y Untables Veganos</div>
+                <div class="taller-toggle">+</div>
+              </div>
+              <div class="taller-desc">
+                Aprendé a elaborar alternativas vegetales deliciosas utilizando semillas, frutos secos y fermentos naturales. Crearemos texturas cremosas, firmes y saborizadas sin lácteos, ideales para sumar opciones nutritivas a tus comidas diarias.
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="taller-card" id="taller-3">
-          <div class="taller-img-wrap">
-            <img src="images/panaderia_vegana.webp" alt="Taller de Pan Artesanal" loading="lazy">
-          </div>
-          <div class="taller-body">
-            <div class="taller-header" onclick="toggleTaller('taller-3')">
-              <div class="taller-name">Taller de Pan Artesanal</div>
-              <div class="taller-toggle">+</div>
+        <div class="taller-page">
+          <div class="taller-card" data-taller-id="2">
+            <div class="taller-img-wrap">
+              <img src="images/fermentacion.webp" alt="Taller de Fermentación" loading="lazy">
             </div>
-            <div class="taller-desc">
-              <!-- NOTA: Completar con descripción del taller de Pan Artesanal -->
-              [TEXTO — Descripción del taller: qué se hace, duración, a quién está dirigido, si tiene costo extra, etc.]
+            <div class="taller-body">
+              <div class="taller-header">
+                <div class="taller-name">Taller de Fermentación Natural</div>
+                <div class="taller-toggle">+</div>
+              </div>
+              <div class="taller-desc">
+                Explora el fascinante mundo de los microorganismos aprendiendo técnicas para fermentar vegetales de estación y crear bebidas probióticas.
+              </div>
+            </div>
+          </div>
+          <div class="taller-card" data-taller-id="3">
+            <div class="taller-img-wrap">
+              <img src="images/panaderia_vegana.webp" alt="Taller de Pan Artesanal" loading="lazy">
+            </div>
+            <div class="taller-body">
+              <div class="taller-header">
+                <div class="taller-name">Taller de Pan Artesanal</div>
+                <div class="taller-toggle">+</div>
+              </div>
+              <div class="taller-desc">
+                Descubre el arte de la fermentación natural en este taller práctico donde aprenderás a crear pan con masa madre y harinas locales.
+              </div>
             </div>
           </div>
         </div>
 
       </div>
     </div>
-    <button class="carousel-arrow next" onclick="moveCarousel(1)" aria-label="Siguiente">›</button>
+    <button class="carousel-arrow next" id="tallNext" aria-label="Siguiente">›</button>
   </div>
 </section>
 
-<!-- ── SECCIÓN 6: MAPA ────────────────────────────────────────── -->
 <section class="where-section">
   <div class="section-banner" style="max-width:860px;margin:0 auto;clip-path:polygon(1.5% 0,98.5% 0,97% 100%,3% 100%);">
     <span class="section-banner-text">¿DÓNDE ESTAMOS?</span>
@@ -982,21 +1107,19 @@
   </div>
 </section>
 
-<!-- SEGUNDO CTA — antes del footer -->
 <section class="cta-banner">
   <div class="cta-banner-eyebrow">¡Cupos limitados!</div>
   <h2>¿Todavía no reservaste<br>tu lugar?</h2>
   <p>
-    El 24 y 25 de julio, en el Mercado Sabe la Tierra del Parque Rivadavia. <strong>Reservá ahora</strong> y asegurate de estar con Paulina.
+    El 24 y 25 de julio, en el Mercado "Sabe la Tierra" del Parque Rivadavia. <strong>Reservá ahora</strong> y asegurate de conocer con Paulina.
   </p>
   <button class="btn-cta-big" onclick="openModal()">¡Reservá ahora!</button>
-  <p class="cta-note">⚠️ <strong>Cupos limitados.</strong> Confirmación por email a hola@paulinacocina.net</p>
+  <p class="cta-note">⚠️ <strong>Cupos limitados.</strong> Registrate y verifica tu email para ver tu confirmación.</p>
 </section>
 
-<!-- FOOTER -->
 <footer class="footer">
   <p class="footer-lorem">
-    SE SUSPENDE EN CASO DE LLUVIA Y/O VIENTO FUERTE Y/O FRÍO EXTREMO YA QUE ES AL AIRE LIBRE. MIRÁ EL MISMO DÍA DEL EVENTO LAS HISTORIAS DE NUESTRO INSTAGRAM PARA ACTUALIZAR LA INFO.
+    SE SUSPENDE EN CASO DE LLUVIA, VIENTO FUERTE Y/O FRÍO EXTREMO YA QUE ES AL AIRE LIBRE. MIRÁ EL MISMO DÍA DEL EVENTO LAS HISTORIAS DE NUESTRO INSTAGRAM PARA ACTUALIZAR LA INFO.
   </p>
   <div class="footer-social-label">¡SEGUIME EN LAS REDES!</div>
   <div class="footer-social-icons">
@@ -1033,8 +1156,8 @@
 <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal" id="modal">
     <div class="modal-header">
-      <div class="modal-header-pre">Edición especial · Sabe la Tierra</div>
-      <h2 id="modalTitle">Reservá tu lugar<br>con Paulina</h2>
+      <div class="modal-header-pre">Edición especial · "Sabe la Tierra"</div>
+      <h2 id="modalTitle">Visita la feria y<br>no te pierdas de la firma de Verdurisima </h2>
       <button class="modal-close" onclick="closeModal()" aria-label="Cerrar">✕</button>
     </div>
     <div class="modal-body" id="modalFormBody">
@@ -1074,22 +1197,18 @@
         </div>
       </div>
       <button class="btn-submit" onclick="handleSubmit()">¡Reservá mi lugar!</button>
-      <p class="cupos-note">⚠️ <strong>Cupos limitados.</strong> Confirmación por email desde hola@paulinacocina.net</p>
+      <p class="cupos-note">⚠️ <strong>Cupos limitados.</strong> Registrate y verifica tu email para ver tuconfirmación.</p>
     </div>
-
-    <!-- SUCCESS — personalizado con nombre y mail del formulario -->
     <div class="modal-success" id="modalSuccess">
       <div class="success-icon">🎉</div>
       <div class="success-title" id="successTitle">¡Listo, te anotaste!</div>
-      <p class="success-msg" id="successMsg">
-        <!-- Completado dinámicamente por JS con nombre y email -->
-      </p>
+      <p class="success-msg" id="successMsg"></p>
     </div>
   </div>
 </div>
 
 <script>
-  /* ACCORDION */
+
   function toggleAccordion(id) {
     const body = document.getElementById(id);
     const btn  = document.getElementById(id + '-btn');
@@ -1099,33 +1218,129 @@
     btn.classList.toggle('open', !isOpen);
     btn.setAttribute('aria-expanded', String(!isOpen));
   }
-
-  /* TALLERES DESPLEGABLES */
-  function toggleTaller(id) {
-    const card = document.getElementById(id);
-    const isOpen = card.classList.contains('open');
-    document.querySelectorAll('.taller-card').forEach(c => c.classList.remove('open'));
-    if (!isOpen) card.classList.add('open');
-  }
-
-  /* CAROUSEL */
-  let carouselIndex = 0;
-  function moveCarousel(dir) {
-    const track = document.getElementById('talleresTrack');
-    const cards = track.querySelectorAll('.taller-card');
-    const visibleCount = window.innerWidth <= 860 ? 1 : 2;
-    const maxIndex = cards.length - visibleCount;
-    carouselIndex = Math.max(0, Math.min(carouselIndex + dir, maxIndex));
-    const pct = 100 / visibleCount;
-    const gap = visibleCount === 2 ? 24 : 0;
-    track.style.transform = `translateX(calc(-${carouselIndex * pct}% - ${carouselIndex * gap}px))`;
-  }
-  window.addEventListener('resize', () => {
-    carouselIndex = 0;
-    document.getElementById('talleresTrack').style.transform = 'translateX(0)';
+  document.querySelectorAll('.taller-card').forEach(card => {
+    card.querySelector('.taller-header').addEventListener('click', function() {
+      card.classList.toggle('open');
+    });
   });
 
-  /* MODAL */
+  function makePageCarousel({ trackId, prevId, nextId, dotsId, autoMs }) {
+    const track  = document.getElementById(trackId);
+    const prev   = document.getElementById(prevId);
+    const next   = document.getElementById(nextId);
+    const dotsEl = dotsId ? document.getElementById(dotsId) : null;
+
+    let pages      = [];
+    let current    = 0;
+    let isAnim     = false;
+    let autoTimer  = null;
+
+    function getPages() {
+      return Array.from(track.children);
+    }
+
+    function setPos(idx, animated) {
+      track.style.transition = animated
+        ? 'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)'
+        : 'none';
+      track.style.transform = `translateX(-${idx * 100}%)`;
+    }
+
+    function updateDots() {
+      if (!dotsEl) return;
+      dotsEl.querySelectorAll('.prod-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    function buildDots() {
+      if (!dotsEl) return;
+      dotsEl.innerHTML = '';
+      pages = getPages();
+      pages.forEach((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'prod-dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('aria-label', 'Página ' + (i + 1));
+        d.addEventListener('click', () => goTo(i));
+        dotsEl.appendChild(d);
+      });
+    }
+
+    function goTo(target) {
+      if (isAnim) return;
+      pages = getPages();
+      const total = pages.length;
+      target = ((target % total) + total) % total;
+      if (target === current) return;
+
+      const diff = Math.abs(target - current);
+      const isWrap = diff > 1 && (current === 0 || current === total - 1 || target === 0 || target === total - 1);
+
+      isAnim = true;
+
+      if (isWrap) {
+
+        track.style.transition = 'opacity 0.22s ease';
+        track.style.opacity = '0';
+        setTimeout(() => {
+  
+          setPos(target, false);
+          current = target;
+          updateDots();
+          /* Fade in */
+          track.style.transition = 'opacity 0.3s ease';
+          track.style.opacity = '1';
+          setTimeout(() => {
+            track.style.transition = '';
+            isAnim = false;
+          }, 320);
+        }, 240);
+      } else {
+
+        setPos(target, true);
+        current = target;
+        updateDots();
+        setTimeout(() => { isAnim = false; }, 580);
+      }
+    }
+
+    function goPrev() { goTo(current - 1); resetAuto(); }
+    function goNext() { goTo(current + 1); resetAuto(); }
+
+    function resetAuto() {
+      if (!autoMs) return;
+      clearInterval(autoTimer);
+      autoTimer = setInterval(goNext, autoMs);
+    }
+
+    prev && prev.addEventListener('click', goPrev);
+    next && next.addEventListener('click', goNext);
+
+
+    pages = getPages();
+    setPos(0, false);
+    buildDots();
+    resetAuto();
+
+    return { goTo, goPrev, goNext };
+  }
+
+  makePageCarousel({
+    trackId: 'productoresTrack',
+    prevId:  'prodPrev',
+    nextId:  'prodNext',
+    dotsId:  'prodDots',
+    autoMs:  4500,
+  });
+
+  makePageCarousel({
+    trackId: 'talleresTrack',
+    prevId:  'tallPrev',
+    nextId:  'tallNext',
+    dotsId:  null,
+    autoMs:  5000,
+  });
+
   function openModal() {
     document.getElementById('modalOverlay').classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -1142,31 +1357,27 @@
     if (e.key === 'Escape') closeModal();
   });
 
-  /* FORM SUBMIT — mensaje de éxito personalizado con nombre y mail */
   function handleSubmit() {
     const nombreVal   = document.getElementById('nombre').value.trim();
     const emailVal    = document.getElementById('email').value.trim();
     const personasVal = document.getElementById('personas').value;
     const diaVal      = document.getElementById('dia').value;
 
-    if (!nombreVal)                         { highlight('nombre');   return; }
-    if (!emailVal || !emailVal.includes('@')){ highlight('email');    return; }
-    if (!personasVal)                        { highlight('personas'); return; }
-    if (!diaVal)                             { highlight('dia');      return; }
+    if (!nombreVal)                          { highlight('nombre');   return; }
+    if (!emailVal || !emailVal.includes('@')) { highlight('email');    return; }
+    if (!personasVal)                         { highlight('personas'); return; }
+    if (!diaVal)                              { highlight('dia');      return; }
 
-    /* Tomar solo el primer nombre para el saludo */
     const primerNombre = nombreVal.split(' ')[0];
     const diaTexto = diaVal === '24' ? 'jueves 24 de julio' : 'viernes 25 de julio';
 
-    /* Inyectar datos en el mensaje de éxito */
     document.getElementById('successTitle').innerHTML =
       '¡Listo, <span class="success-name-highlight">' + primerNombre + '</span>!';
-
     document.getElementById('successMsg').innerHTML =
       'Tu reserva para el <strong>' + diaTexto + '</strong> está confirmada.<br><br>' +
       'En breve vas a recibir el comprobante en <span class="success-email-highlight">' + emailVal + '</span> ' +
       'desde <strong>hola@paulinacocina.net</strong>.<br><br>' +
-      '¡Nos vemos en el Mercado Sabe la Tierra! 🥬';
+      '¡Nos vemos en el Mercado "Sabe la Tierra"!';
 
     document.getElementById('modalFormBody').style.display = 'none';
     document.getElementById('modalSuccess').classList.add('visible');
