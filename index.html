@@ -159,25 +159,13 @@
 
     /* Hero illustration */
     .hero-illustration {
-      position: relative;
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      min-height: 440px;
-    }
-    .hero-starburst {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 380px;
-      height: 380px;
-      z-index: 0;
+      min-height: 480px;
     }
     .hero-paulina {
-      position: relative;
-      z-index: 1;
-      height: 380px;
+      height: 480px;
       width: auto;
       object-fit: contain;
     }
@@ -709,22 +697,35 @@
 
     /* ── RESPONSIVE ──────────────────────────────── */
     @media (max-width: 860px) {
-      :root {
-        --site-px: 20px;
-      }
+      :root { --site-px: 20px; }
       .hero-content-row { grid-template-columns: 1fr; padding-bottom: 48px; }
-      .hero-illustration { min-height: 300px; }
-      .hero-starburst { width: 280px; height: 280px; }
-      .hero-paulina { height: 300px; }
+      .hero-illustration { min-height: 320px; }
+      .hero-paulina { height: 320px; }
       .sobre-feria-inner { grid-template-columns: 1fr; gap: 36px; }
-      .taller-card { flex: 0 0 calc(80vw); }
       .form-row { grid-template-columns: 1fr; }
       .modal-body { padding: 24px; }
       .modal-header { padding: 24px 24px 20px; }
+
+      /* Talleres mobile: 1 card visible + peek del siguiente */
+      .talleres-section { overflow: hidden; }
+      /* El container de talleres NO recorta el overflow horizontal */
+      .talleres-section .container { overflow: visible; padding-right: 0; }
+      /* El viewport tampoco recorta — la sección lo hace */
+      .talleres-viewport { overflow: visible; }
+      /* Cada slide pasa a ser un row de cards individuales
+         El track se desplaza de a un ancho de card (80vw + gap) */
+      .taller-slide {
+        gap: 16px;
+      }
+      /* Cada card: 80% de la pantalla, el 10% del siguiente se asoma */
+      .taller-card {
+        flex: 0 0 80vw;
+        min-width: 0;
+      }
     }
     @media (max-width: 560px) {
       .hero-title { font-size: 36px; }
-      .taller-card { flex: 0 0 85vw; }
+      .taller-card { flex: 0 0 82vw; }
       .prod-slide { flex-direction: column; }
       .prod-card { flex: none; }
     }
@@ -757,16 +758,6 @@
     </div>
 
     <div class="hero-illustration">
-      <svg class="hero-starburst" viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="dots" patternUnits="userSpaceOnUse" width="22" height="22">
-            <circle cx="11" cy="11" r="2.8" fill="rgba(255,255,255,0.32)"/>
-          </pattern>
-        </defs>
-        <polygon points="190,12 212,76 268,34 262,100 330,84 304,148 374,163 326,208 378,244 314,265 348,328 280,322 274,388 222,352 190,408 158,352 106,388 100,322 32,328 66,265 2,244 54,208 6,163 76,148 50,84 118,100 112,34 168,76" fill="#E8967A"/>
-        <polygon points="190,42 205,85 242,58 240,101 280,88 267,129 308,128 288,163 328,178 298,200 332,222 298,234 318,263 284,263 287,294 256,284 246,314 220,295 190,320 160,295 134,314 124,284 93,263 96,232 62,263 82,234 48,222 78,200 48,178 88,163 68,128 109,129 96,88 136,101 134,58 171,85" fill="#2EC4B6"/>
-        <polygon points="190,42 205,85 242,58 240,101 280,88 267,129 308,128 288,163 328,178 298,200 332,222 298,234 318,263 284,263 287,294 256,284 246,314 220,295 190,320 160,295 134,314 124,284 93,263 96,232 62,263 82,234 48,222 78,200 48,178 88,163 68,128 109,129 96,88 136,101 134,58 171,85" fill="url(#dots)"/>
-      </svg>
       <img class="hero-paulina"
         src="images/Paulina.png"
         alt="Paulina Cocina"
@@ -1143,22 +1134,49 @@
   /* ── CARRUSEL TALLERES ─────────────────────── */
   (function() {
     const track   = document.getElementById('tallTrack');
-    const slides  = Array.from(track.children);
-    const total   = slides.length;
     const AUTO_MS = 4500;
     let current   = 0;
     let timer     = null;
 
+    function isMobile() { return window.innerWidth <= 860; }
+
+    function getTotal() {
+      if (isMobile()) {
+        // En mobile contamos todas las cards individualmente
+        return track.querySelectorAll('.taller-card').length;
+      }
+      return track.children.length; // slides (pares)
+    }
+
+    function getShiftPx() {
+      if (isMobile()) {
+        // Desplazamos por el ancho de 1 card (80vw) + gap (16px)
+        const cardW = window.innerWidth * 0.80;
+        return current * (cardW + 16);
+      }
+      // Desktop: desplazamos por porcentaje del slide
+      return null;
+    }
+
     function go(idx) {
+      const total = getTotal();
       current = ((idx % total) + total) % total;
       track.style.transition = 'transform .6s cubic-bezier(.4,0,.2,1)';
-      track.style.transform  = `translateX(-${current * 100}%)`;
+      if (isMobile()) {
+        const px = getShiftPx();
+        track.style.transform = `translateX(-${px}px)`;
+      } else {
+        track.style.transform = `translateX(-${current * 100}%)`;
+      }
     }
 
     function startAuto() {
       clearInterval(timer);
       timer = setInterval(() => go(current + 1), AUTO_MS);
     }
+
+    // Recalcular al cambiar tamaño de pantalla
+    window.addEventListener('resize', () => { current = 0; go(0); });
 
     go(0);
     startAuto();
