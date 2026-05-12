@@ -120,7 +120,7 @@
       grid-template-columns: 1fr 1fr;
       align-items: center;
       padding-top: 40px;
-      padding-bottom: 72px;
+      padding-bottom: 40px;
       gap: 32px;
     }
 
@@ -164,7 +164,7 @@
     /* ── SOBRE LA FERIA ──────────────────────────── */
     .sobre-feria {
       background: var(--cream);
-      padding: 72px 0 80px;
+      padding: 64px 0;
     }
     .sobre-feria-inner {
       display: grid;
@@ -223,7 +223,7 @@
 
     /* ── ACCORDION ───────────────────────────────── */
     .accordion-section {
-      padding: 40px 0 56px;
+      padding: 56px 0;
     }
     .accordion-item { border-top: 1.5px solid #ccc; }
     .accordion-item:last-child { border-bottom: 1.5px solid #ccc; }
@@ -284,7 +284,7 @@
     .btn-red-block:hover { background: var(--red-dark); transform: translateY(-2px); }
 
     /* ── PRODUCTORES ─────────────────────────────── */
-    .productores-section { padding: 64px 0 48px; background: var(--white); }
+    .productores-section { padding: 64px 0; background: var(--white); }
 
     .section-heading {
       font-family: var(--font-serif);
@@ -367,21 +367,17 @@
     /* FIX 1: padding simétrico en desktop (era 64px 0 56px → igualamos a 64px) */
     .talleres-section { padding: 64px 0; background: var(--cream); }
 
-    /* DESKTOP: 2 cards por slide, carousel por slides */
     .talleres-viewport { overflow: hidden; }
     .talleres-track {
       display: flex;
       transition: transform .6s cubic-bezier(.4,0,.2,1);
     }
     .taller-slide {
-      display: flex;
-      gap: 24px;
       flex: 0 0 100%;
       width: 100%;
-      align-items: stretch;
     }
     .taller-card {
-      flex: 1;
+      width: 100%;
       background: var(--salmon-card);
       border-radius: 4px;
       overflow: hidden;
@@ -390,35 +386,34 @@
     }
     .taller-img {
       width: 100%;
-      height: 220px;
+      height: 340px;
       object-fit: cover;
       object-position: center top;
       display: block;
       flex-shrink: 0;
     }
     .taller-body {
-      padding: 16px 20px 22px;
+      padding: 20px 24px 26px;
       display: flex;
       flex-direction: column;
-      flex: 1;
     }
     .taller-name {
       font-family: var(--font-mono);
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
       color: var(--dark);
       line-height: 1.4;
       margin-bottom: 8px;
     }
     .taller-desc {
-      font-size: 13px;
+      font-size: 14px;
       line-height: 1.7;
       color: var(--dark);
     }
 
     /* ── DÓNDE ESTAMOS ───────────────────────────── */
     .donde-section {
-      padding: 64px 0 72px;
+      padding: 64px 0;
       background: var(--white);
     }
     .donde-inner h2 {
@@ -443,7 +438,7 @@
 
     /* ── CUPOS LIMITADOS CTA ─────────────────────── */
     .cupos-cta {
-      padding: 72px 0 80px;
+      padding: 72px 0;
       background: var(--white);
     }
     .cupos-eyebrow {
@@ -699,63 +694,7 @@
       .modal-body { padding: 24px; }
       .modal-header { padding: 24px 24px 20px; }
 
-      /*
-       * TALLERES MOBILE
-       * - El section oculta overflow para recortar la siguiente card
-       * - El container mantiene padding-left para el margen izquierdo
-       *   pero elimina padding-right para que la card siguiente asome
-       * - El track arranca desplazado desde el padding-left del container
-       * - Cada card ocupa (100vw - site-px-left - site-px-right / 2)
-       *   para que el siguiente card asoma ~20px desde el borde derecho
-       *   dando el mismo margen visual en ambos lados
-       */
-      .talleres-section {
-        overflow: hidden;
-        /* FIX 2: mantener padding vertical simétrico en mobile también */
-        padding: 48px 0;
-      }
-      .talleres-section .container {
-        /* Mantenemos padding-left, eliminamos padding-right para el peek */
-        padding-right: 0;
-        overflow: visible;
-      }
-      .talleres-viewport {
-        overflow: visible;
-      }
-
-      .talleres-track {
-        gap: 0;
-        /* FIX 3: el track inicia con el margen izquierdo (--site-px)
-           para que la primera card arranque alineada con el texto */
-        padding-left: 0; /* el container ya aplica padding-left */
-      }
-
-      .taller-slide {
-        /*
-         * FIX 4: gap entre cards para que no se toquen.
-         * El gap ahora es 33px para dar más separación en mobile.
-         */
-        gap: 33px;
-        flex: 0 0 auto;
-        width: auto;
-      }
-
-      /*
-       * FIX 5: Ancho de cada card = 100vw - margen-izq - margen-der-peek
-       * margen-izq = --site-px (20px)
-       * margen-der-peek = --site-px (20px)
-       * Fórmula: 100vw - 20px - 20px - 33px(gap) = 100vw - 73px
-       */
-      .taller-card {
-        flex: 0 0 calc(100vw - var(--site-px) * 2 - 33px);
-        min-width: 0;
-      }
-
-      .taller-img {
-        height: 200px;
-        object-fit: cover;
-        object-position: center center;
-      }
+      .taller-img { height: 240px; }
     }
 
     @media (max-width: 560px) {
@@ -982,18 +921,17 @@
 
         <div class="taller-slide">
           <div class="taller-card">
-            <img class="taller-img"
-              src="images/laboratorio.webp"
-              alt="Taller de fermentación natural">
+            <img class="taller-img" src="images/laboratorio.webp" alt="Taller de fermentación natural">
             <div class="taller-body">
               <div class="taller-name">Taller de fermentacion natural</div>
               <div class="taller-desc">Explora el fascinante mundo de los microorganismos aprendiendo técnicas para fermentar.</div>
             </div>
           </div>
+        </div>
+
+        <div class="taller-slide">
           <div class="taller-card">
-            <img class="taller-img"
-              src="images/taller_quesos.webp"
-              alt="Taller de Quesos y Untables Veganos">
+            <img class="taller-img" src="images/taller_quesos.webp" alt="Taller de Quesos y Untables Veganos">
             <div class="taller-body">
               <div class="taller-name">Taller de "Quesos" y Untables Veganos</div>
               <div class="taller-desc">Aprendé a elaborar alternativas vegetales ideales para sumar opciones nutritivas a tus comidas diarias.</div>
@@ -1003,18 +941,17 @@
 
         <div class="taller-slide">
           <div class="taller-card">
-            <img class="taller-img"
-              src="images/fermentacion.webp"
-              alt="Taller de Pan Artesanal">
+            <img class="taller-img" src="images/fermentacion.webp" alt="Taller de Pan Artesanal">
             <div class="taller-body">
               <div class="taller-name">Taller de Pan Artesanal</div>
               <div class="taller-desc">Descubrí el arte de la fermentación natural y aprendé a hacer pan con masa madre y harinas locales.</div>
             </div>
           </div>
+        </div>
+
+        <div class="taller-slide">
           <div class="taller-card">
-            <img class="taller-img"
-              src="images/panaderia_vegana.webp"
-              alt="Laboratorio de Educación Alimentaria">
+            <img class="taller-img" src="images/panaderia_vegana.webp" alt="Laboratorio de Educación Alimentaria">
             <div class="taller-body">
               <div class="taller-name">Laboratorio de Educación Alimentaria</div>
               <div class="taller-desc">Un espacio de experimentación creativa donde la ciencia y la cocina se encuentran para transformar ingredientes locales.</div>
@@ -1116,22 +1053,9 @@
         <label class="form-label" for="email">Email</label>
         <input class="form-input" type="email" id="email" placeholder="tu@email.com" autocomplete="email" required>
       </div>
-      <div class="form-row">
-        <div class="form-group" style="margin-bottom:0;">
-          <label class="form-label" for="telefono">Teléfono</label>
-          <input class="form-input" type="tel" id="telefono" placeholder="+54 11 ..." autocomplete="tel">
-        </div>
-        <div class="form-group" style="margin-bottom:0;">
-          <label class="form-label" for="personas">Cantidad de personas</label>
-          <div class="select-wrap">
-            <select class="form-select" id="personas">
-              <option value="" disabled selected>Seleccioná</option>
-              <option value="1">1 persona</option>
-              <option value="2">2 personas</option>
-              <option value="3">3 personas</option>
-            </select>
-          </div>
-        </div>
+      <div class="form-group">
+        <label class="form-label" for="telefono">Teléfono</label>
+        <input class="form-input" type="tel" id="telefono" placeholder="+54 11 ..." autocomplete="tel">
       </div>
       <div class="form-group" style="margin-top:20px;">
         <label class="form-label" for="dia">Preferencia de día</label>
@@ -1168,47 +1092,21 @@
   /* ── CARRUSEL TALLERES ─────────────────────── */
   (function() {
     const track   = document.getElementById('tallTrack');
+    const total   = track.children.length;
     const AUTO_MS = 4500;
     let current   = 0;
     let timer     = null;
 
-    function isMobile() { return window.innerWidth <= 860; }
-
-    function getAllCards() {
-      return Array.from(track.querySelectorAll('.taller-card'));
-    }
-
-    function getTotal() {
-      return isMobile() ? getAllCards().length : track.children.length;
-    }
-
     function go(idx) {
-      const total = getTotal();
       current = ((idx % total) + total) % total;
       track.style.transition = 'transform .6s cubic-bezier(.4,0,.2,1)';
-
-      if (isMobile()) {
-        /*
-         * FIX JS: en mobile cada card ocupa calc(100vw - 20px*2 - 16px).
-         * El offset = índice × (ancho de card + gap entre cards).
-         * El margen izquierdo lo pone el padding-left del container (20px),
-         * así que NO hay que sumarlo al offset: el track ya arranca desplazado.
-         */
-        const px    = 20; // --site-px en mobile
-        const gap   = 16;
-        const cardW = window.innerWidth - px * 2 - gap;
-        track.style.transform = `translateX(-${current * (cardW + gap)}px)`;
-      } else {
-        track.style.transform = `translateX(-${current * 100}%)`;
-      }
+      track.style.transform  = `translateX(-${current * 100}%)`;
     }
 
     function startAuto() {
       clearInterval(timer);
       timer = setInterval(() => go(current + 1), AUTO_MS);
     }
-
-    window.addEventListener('resize', () => { current = 0; go(0); startAuto(); });
 
     go(0);
     startAuto();
@@ -1278,12 +1176,10 @@
   function handleSubmit() {
     const nombreVal   = document.getElementById('nombre').value.trim();
     const emailVal    = document.getElementById('email').value.trim();
-    const personasVal = document.getElementById('personas').value;
     const diaVal      = document.getElementById('dia').value;
 
     if (!nombreVal)                          { highlight('nombre');   return; }
     if (!emailVal || !emailVal.includes('@')){ highlight('email');    return; }
-    if (!personasVal)                        { highlight('personas'); return; }
     if (!diaVal)                             { highlight('dia');      return; }
 
     const primerNombre = nombreVal.split(' ')[0];
