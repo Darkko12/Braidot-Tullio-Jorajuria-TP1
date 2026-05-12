@@ -28,11 +28,8 @@
       --font-mono:  'Space Mono', monospace;
       --divider:    #D97B6A;
 
-      /* ── CONTENEDOR CENTRAL ─────────────────────
-         Todo el contenido vive dentro de este ancho.
-         Ajustá --site-max-width a lo que necesites.   */
       --site-max-width: 900px;
-      --site-px: 40px;          /* padding horizontal en cada sección */
+      --site-px: 40px;
     }
 
     body {
@@ -44,8 +41,6 @@
     img { max-width: 100%; display: block; }
     a   { text-decoration: none; color: inherit; }
 
-    /* ── CONTENEDOR GENÉRICO ─────────────────────
-       Aplicado a TODOS los inner-wrappers de sección */
     .container {
       width: 100%;
       max-width: var(--site-max-width);
@@ -66,7 +61,6 @@
       top: 0;
       z-index: 200;
     }
-    /* La navbar usa su propio container interno para alinear el logo */
     .navbar-inner {
       width: 100%;
       max-width: var(--site-max-width);
@@ -91,7 +85,6 @@
       text-align: center;
       padding: 40px var(--site-px) 0;
     }
-    /* El título también respeta el contenedor */
     .hero-title-wrap-inner {
       max-width: var(--site-max-width);
       margin: 0 auto;
@@ -126,7 +119,6 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: center;
-      /* hereda el container */
       padding-top: 40px;
       padding-bottom: 72px;
       gap: 32px;
@@ -157,7 +149,6 @@
     }
     .btn-teal:hover { background: #25a99d; transform: translateY(-2px); }
 
-    /* Hero illustration */
     .hero-illustration {
       display: flex;
       justify-content: center;
@@ -207,7 +198,6 @@
     }
     .sobre-feria-left p + p { margin-top: 16px; }
 
-    /* Info rows (right column) */
     .sf-info-row {
       display: flex;
       gap: 16px;
@@ -376,7 +366,7 @@
     /* ── TALLERES ─────────────────────────────────── */
     .talleres-section { padding: 64px 0 56px; background: var(--cream); }
 
-    /* ── DESKTOP: 2 cards por slide, carousel por slides ── */
+    /* DESKTOP: 2 cards por slide, carousel por slides */
     .talleres-viewport { overflow: hidden; }
     .talleres-track {
       display: flex;
@@ -709,38 +699,57 @@
       .modal-header { padding: 24px 24px 20px; }
 
       /*
-       * TALLERES MOBILE — 1 card visible, peek del siguiente
-       * Estrategia: aplanamos el track para que cada card sea un "slide" individual.
-       * El section recorta el overflow. El container quita el padding-right
-       * para que la card siguiente asome por el borde.
+       * TALLERES MOBILE — 1 card visible con peek del siguiente
+       *
+       * Estrategia: el .talleres-track se convierte en una fila plana
+       * donde todos los .taller-slide pierden su flex container y
+       * las .taller-card quedan como items directos alineados en fila.
+       *
+       * El section oculta el overflow para recortar las cards siguientes.
+       * El padding-right se elimina del container para que la card
+       * siguiente asome por el borde derecho de la pantalla.
        */
-      .talleres-section { overflow: hidden; }
-      .talleres-section .container { padding-right: 0; overflow: visible; }
-      .talleres-viewport { overflow: visible; }
-
-      /* El track en mobile se convierte en una fila plana de todas las cards */
-      .talleres-track { gap: 0; }
-
-      /* Cada slide se convierte en una fila, pero las cards se encadenan
-         horizontalmente una tras otra a lo ancho del track */
-      .taller-slide {
-        gap: 16px;
-        /* cada slide sigue ocupando su espacio, las cards adentro se ven individualmente */
+      .talleres-section {
+        overflow: hidden;
+      }
+      .talleres-section .container {
+        padding-right: 0;
+        overflow: visible;
+      }
+      .talleres-viewport {
+        overflow: visible;
       }
 
-      /* Cada card: 82% de vp → el 10% del siguiente asoma */
+      /* El track en mobile es una fila plana de cards sin gaps entre slides */
+      .talleres-track {
+        /* Eliminamos el gap entre slides — cada card tiene su propio gap */
+        gap: 0;
+      }
+
+      /* Los slides en mobile no son "bloques" independientes sino
+         contenedores transparentes que dejan pasar sus cards al flujo */
+      .taller-slide {
+        /* Mantenemos flex pero cada card tendrá ancho fijo */
+        gap: 16px;
+        /* Cada slide ocupa exactamente el ancho de sus cards:
+           2 cards × (82vw + 16px gap) — el último slide no suma gap extra */
+        flex: 0 0 auto;
+        width: auto;
+      }
+
+      /* Cada card mide 82vw → el ~10% del siguiente card asoma */
       .taller-card {
         flex: 0 0 82vw;
         min-width: 0;
       }
 
-      /* La imagen en mobile ocupa toda la card y no se recorta mal */
       .taller-img {
         height: 200px;
         object-fit: cover;
         object-position: center center;
       }
     }
+
     @media (max-width: 560px) {
       .hero-title { font-size: 36px; }
       .prod-slide { flex-direction: column; }
@@ -1162,8 +1171,8 @@
     }
 
     function getTotal() {
-      // Desktop: número de slides (cada uno tiene 2 cards)
-      // Mobile: número total de cards individuales
+      // Desktop: número de slides (cada uno con 2 cards)
+      // Mobile:  número total de cards individuales
       return isMobile() ? getAllCards().length : track.children.length;
     }
 
@@ -1173,12 +1182,12 @@
       track.style.transition = 'transform .6s cubic-bezier(.4,0,.2,1)';
 
       if (isMobile()) {
-        // Cada card ocupa 82vw + 16px de gap
+        // Cada card ocupa 82vw + 16px de gap entre cards
         const cardW = window.innerWidth * 0.82;
         const gap   = 16;
         track.style.transform = `translateX(-${current * (cardW + gap)}px)`;
       } else {
-        // Desktop: avanzar de a 1 slide completo (100%)
+        // Desktop: avanza de a 1 slide completo (100% del viewport)
         track.style.transform = `translateX(-${current * 100}%)`;
       }
     }
