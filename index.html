@@ -6,26 +6,33 @@
   <title>Paulina Cocina: De la huerta a la olla — Edición Especial "Sabe la Tierra"</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=Inter:wght@400;600;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=DM+Sans:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
     :root {
-      --red:      #CC1212;
-      --red-dark: #AA0E0E;
-      --salmon:   #F07B6A;
-      --salmon-lt:#F5A497;
-      --teal:     #2EC4B6;
-      --cream:    #F5EEE4;
-      --white:    #FBF6EF;
-      --dark:     #1A1A1A;
-      --mid:      #444;
-      --light:    #777;
-      --border:   #E5E5E5;
-      --font-main: 'Inter', sans-serif;
-      --font-serif:'Playfair Display', Georgia, serif;
-      --font-mono: 'Space Mono', monospace;
+      --red:        #C01212;
+      --red-dark:   #9A0E0E;
+      --salmon:     #E8967A;
+      --salmon-card:#E8967A;
+      --teal:       #2EC4B6;
+      --cream:      #F3EDE3;
+      --white:      #F9F4EC;
+      --dark:       #1A1A1A;
+      --mid:        #444;
+      --light:      #777;
+      --border:     rgba(0,0,0,.12);
+      --font-main:  'DM Sans', sans-serif;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-mono:  'Space Mono', monospace;
+      --divider:    #D97B6A;
+
+      /* ── CONTENEDOR CENTRAL ─────────────────────
+         Todo el contenido vive dentro de este ancho.
+         Ajustá --site-max-width a lo que necesites.   */
+      --site-max-width: 900px;
+      --site-px: 40px;          /* padding horizontal en cada sección */
     }
 
     body {
@@ -34,98 +41,106 @@
       color: var(--dark);
       overflow-x: hidden;
     }
-
     img { max-width: 100%; display: block; }
     a   { text-decoration: none; color: inherit; }
 
-    /* ── NAVBAR ─────────────────────────────────────────────── */
+    /* ── CONTENEDOR GENÉRICO ─────────────────────
+       Aplicado a TODOS los inner-wrappers de sección */
+    .container {
+      width: 100%;
+      max-width: var(--site-max-width);
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: var(--site-px);
+      padding-right: var(--site-px);
+    }
+
+    /* ── NAVBAR ─────────────────────────────────── */
     .navbar {
       background: var(--red);
       height: 64px;
       display: flex;
       align-items: center;
-      padding: 0 40px;
+      padding: 0 var(--site-px);
       position: sticky;
       top: 0;
       z-index: 200;
     }
-    .nav-logo {
+    /* La navbar usa su propio container interno para alinear el logo */
+    .navbar-inner {
+      width: 100%;
+      max-width: var(--site-max-width);
+      margin: 0 auto;
       display: flex;
       align-items: center;
-      gap: 10px;
-      cursor: pointer;
     }
-    .nav-logo img { height: 40px; width: auto; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .nav-logo img { height: 38px; width: auto; }
 
-    /* ── HERO ───────────────────────────────────────────────── */
+    /* ── DIVIDER LINE ────────────────────────────── */
+    .section-divider {
+      width: 100%;
+      height: 3px;
+      background: var(--divider);
+    }
+
+    /* ── HERO ────────────────────────────────────── */
     .hero { background: var(--cream); position: relative; overflow: hidden; }
 
-    .hero-title-wrap { text-align: center; padding: 36px 40px 8px; }
+    .hero-title-wrap {
+      text-align: center;
+      padding: 40px var(--site-px) 0;
+    }
+    /* El título también respeta el contenedor */
+    .hero-title-wrap-inner {
+      max-width: var(--site-max-width);
+      margin: 0 auto;
+    }
 
     .edition-badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       background: var(--red);
       color: #fff;
       font-family: var(--font-mono);
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: .18em;
+      letter-spacing: .16em;
       text-transform: uppercase;
-      padding: 6px 16px;
-      border-radius: 2px;
-      margin-bottom: 18px;
-    }
-    .edition-badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--teal);
-      flex-shrink: 0;
+      padding: 7px 18px;
+      margin-bottom: 20px;
     }
 
     .hero-title {
       font-family: var(--font-serif);
       font-style: italic;
       font-weight: 400;
-      font-size: clamp(36px, 6vw, 72px);
+      font-size: clamp(42px, 6vw, 80px);
       color: var(--dark);
       letter-spacing: -.01em;
-      line-height: 1.1;
-    }
-
-    .hero-subtitle {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      font-weight: 400;
-      color: var(--light);
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      margin-top: 12px;
+      line-height: 1.05;
     }
 
     .hero-content-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: center;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 32px 48px 72px;
-      gap: 24px;
+      /* hereda el container */
+      padding-top: 40px;
+      padding-bottom: 72px;
+      gap: 32px;
     }
-    .hero-text {
-      font-size: clamp(16px, 1.6vw, 19px);
-      line-height: 1.7;
-      color: var(--dark);
-      text-align: center;
-    }
-    .hero-text strong { font-weight: 700; }
-    .hero-text p + p { margin-top: 22px; }
 
-    .btn-send {
+    .hero-text {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--dark);
+    }
+
+    .btn-teal {
       display: block;
-      margin: 32px auto 0;
+      margin: 32px 0 0;
       background: var(--teal);
       color: #fff;
       border: none;
@@ -136,108 +151,102 @@
       font-size: 18px;
       font-weight: 700;
       cursor: pointer;
-      letter-spacing: .03em;
+      letter-spacing: .02em;
       transition: background .2s, transform .15s;
+      text-align: center;
     }
-    .btn-send:hover { background: #25a99d; transform: translateY(-2px); }
+    .btn-teal:hover { background: #25a99d; transform: translateY(-2px); }
 
+    /* Hero illustration */
     .hero-illustration {
       position: relative;
       display: flex;
       justify-content: center;
-      align-items: center;
-      min-height: 420px;
+      align-items: flex-end;
+      min-height: 440px;
     }
-     .paulina-photo-placeholder {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 320px;
-      height: 360px;
-      object-fit: cover;
-      object-position: center top;
-      border-radius: 0;
-      box-shadow: none;
-      z-index: 1;
-    }   
-    .starburst {
+    .hero-starburst {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 360px;
-      height: 360px;
+      width: 380px;
+      height: 380px;
       z-index: 0;
     }
+    .hero-paulina {
+      position: relative;
+      z-index: 1;
+      height: 380px;
+      width: auto;
+      object-fit: contain;
+    }
 
-    /* ── SOBRE LA FERIA ─────────────────────────────────────── */
+    /* ── SOBRE LA FERIA ──────────────────────────── */
     .sobre-feria {
       background: var(--cream);
-      color: var(--dark);
-      padding: 72px 40px;
-      border-top: 3px solid var(--salmon);
-      border-bottom: 3px solid var(--salmon);
+      padding: 72px 0 80px;
     }
     .sobre-feria-inner {
-      max-width: 900px;
-      margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 56px;
+      gap: 64px;
       align-items: start;
     }
-    .sobre-feria-left .sf-eyebrow {
+
+    .sf-eyebrow {
       font-family: var(--font-mono);
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: .2em;
+      letter-spacing: .18em;
       text-transform: uppercase;
       color: var(--red);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     .sobre-feria-left h2 {
       font-family: var(--font-serif);
       font-style: italic;
       font-weight: 400;
-      font-size: clamp(28px, 3.5vw, 44px);
-      line-height: 1.15;
+      font-size: clamp(28px, 3.2vw, 42px);
+      line-height: 1.18;
       color: var(--dark);
       margin-bottom: 24px;
     }
     .sobre-feria-left p {
-      font-size: 16px;
+      font-size: 15.5px;
       line-height: 1.8;
       color: var(--mid);
     }
-    .sobre-feria-left p + p { margin-top: 18px; }
+    .sobre-feria-left p + p { margin-top: 16px; }
 
-    .sobre-feria-right { padding-top: 8px; }
+    /* Info rows (right column) */
     .sf-info-row {
       display: flex;
       gap: 16px;
       align-items: flex-start;
       padding: 20px 0;
-      border-bottom: 1px solid rgba(0,0,0,.12);
+      border-bottom: 1px solid var(--border);
     }
-    .sf-info-row:first-child { border-top: 1px solid rgba(0,0,0,.12); }
-    .sf-info-emoji { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+    .sf-info-row:first-child { border-top: 1px solid var(--border); }
+    .sf-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
     .sf-info-label {
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: .12em;
+      letter-spacing: .14em;
       text-transform: uppercase;
       color: var(--red);
       margin-bottom: 4px;
     }
     .sf-info-value {
       font-size: 15px;
-      line-height: 1.5;
+      line-height: 1.55;
       color: var(--mid);
     }
 
-    /* ── ACCORDION ──────────────────────────────────────────── */
-    .accordion-section { max-width: 900px; margin: 0 auto; padding: 0 40px 40px; }
+    /* ── ACCORDION ───────────────────────────────── */
+    .accordion-section {
+      padding: 40px 0 56px;
+    }
     .accordion-item { border-top: 1.5px solid #ccc; }
     .accordion-item:last-child { border-bottom: 1.5px solid #ccc; }
     .accordion-trigger {
@@ -249,14 +258,15 @@
       justify-content: space-between;
       padding: 22px 0;
       cursor: pointer;
-      font-family: var(--font-main);
-      font-size: 18px;
+      font-family: var(--font-mono);
+      font-size: 16px;
       font-weight: 700;
       color: var(--dark);
       text-align: left;
+      letter-spacing: .04em;
     }
-    .accordion-trigger .acc-icon {
-      font-size: 28px;
+    .acc-icon {
+      font-size: 30px;
       font-weight: 300;
       color: var(--dark);
       transition: transform .3s;
@@ -264,262 +274,198 @@
       flex-shrink: 0;
     }
     .accordion-trigger.open .acc-icon { transform: rotate(45deg); }
-    .accordion-body { overflow: hidden; max-height: 0; transition: max-height .4s ease, padding .3s; }
+    .accordion-body { overflow: hidden; max-height: 0; transition: max-height .4s ease; }
     .accordion-body.open { max-height: 600px; }
-    .accordion-body-inner { padding: 0 0 24px; font-size: 15px; line-height: 1.7; color: var(--mid); }
-    .accordion-body-inner ul { margin-left: 20px; margin-top: 8px; }
-    .accordion-body-inner li { margin-bottom: 6px; }
-
-    /* ── SECTION BANNER ─────────────────────────────────────── */
-    .section-banner {
-      margin: 0 40px;
-      padding: 20px 40px;
-      background: var(--salmon);
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
-    }
-    .section-banner-text {
-      font-family: var(--font-mono);
-      font-size: clamp(16px, 2vw, 24px);
-      font-weight: 700;
-      color: var(--dark);
-      letter-spacing: .08em;
-      text-align: center;
-    }
-
-    /* ── PRODUCTORES ────────────────────────────────────────── */
-    .productores-section { padding: 60px 0 20px; }
-    .productores-intro {
-      background: #F0F0F0;
-      max-width: 800px;
-      margin: 0 auto 52px;
-      padding: 32px 40px;
-      text-align: center;
-      font-size: 16px;
-      line-height: 1.7;
+    .accordion-body-inner {
+      padding: 0 0 28px;
+      font-size: 15px;
+      line-height: 1.75;
       color: var(--mid);
     }
+    .accordion-body-inner p { margin-bottom: 12px; }
+    .accordion-body-inner ul { margin: 8px 0 12px 20px; }
+    .accordion-body-inner li { margin-bottom: 6px; }
 
-    /* ─── Carrusel productores — página entera con fade suave ─── */
-    .productores-carousel-wrap {
-      position: relative;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 64px;
-    }
-    /* El viewport que recorta las páginas */
-    .productores-viewport {
-      overflow: hidden;
-      position: relative;
-    }
-    /* El track que contiene las páginas */
-    .productores-track {
-      display: flex;
-      /* transition gestionado por JS para poder hacer fade */
-    }
-    /* Cada "página" (grupo de 3) */
-    .productor-page {
-      display: flex;
-      gap: 16px;
-      flex: 0 0 100%;
-      width: 100%;
-    }
-    .productor-card {
-     background: var(--salmon);
-      padding: 24px 24px 36px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      border-radius: 4px;
-      flex: 1;
-    }
-    .productor-avatar-wrap {
-     margin-top: 24px;
-     margin-bottom: 20px;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 4px solid var(--dark);
-      overflow: hidden;
-      background: #ddd;
-      flex-shrink: 0;
-    }
-    .productor-avatar-wrap img { width: 100%; height: 100%; object-fit: cover; }
-    .productor-cat {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--dark);
-      margin-bottom: 10px;
-      text-align: center;
-    }
-    .productor-name {
+    .btn-red-block {
+      display: block;
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 18px 0;
+      width: 280px;
+      font-family: var(--font-main);
       font-size: 18px;
       font-weight: 700;
-      color: var(--dark);
+      cursor: pointer;
+      letter-spacing: .02em;
+      margin: 24px auto 0;
       text-align: center;
-      margin-bottom: 28px;
-      line-height: 1.2;
-      min-height: 58px;
-      flex: 1;
+      transition: background .2s, transform .15s;
     }
-    .prod-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 44px;
-      height: 44px;
-      background: var(--red);
-      border: none;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: #fff;
-      font-size: 20px;
-      transition: background .2s;
-      z-index: 10;
-    }
-    .prod-arrow:hover { background: var(--red-dark); }
-    .prod-arrow.prev { left: 8px; }
-    .prod-arrow.next { right: 8px; }
-    .prod-dots {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 28px;
-    }
-    .prod-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--border);
-      border: none;
-      cursor: pointer;
-      transition: background .3s, transform .2s;
-      padding: 0;
-    }
-    .prod-dot.active { background: var(--red); transform: scale(1.3); }
+    .btn-red-block:hover { background: var(--red-dark); transform: translateY(-2px); }
 
-    /* ── TALLERES ────────────────────────────────────────────── */
-    .talleres-section { padding: 60px 0; }
+    /* ── PRODUCTORES ─────────────────────────────── */
+    .productores-section { padding: 64px 0 48px; background: var(--white); }
 
-    /* ─── Carrusel talleres — muestra de a 2 ─── */
-    .talleres-carousel {
-      position: relative;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 80px;
+    .section-heading {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(30px, 4vw, 50px);
+      color: var(--dark);
+      margin-bottom: 12px;
     }
-    /* viewport fijo */
-    .talleres-viewport {
-      overflow: hidden;
-      border-radius: 4px;
-      position: relative;
+    .section-sub {
+      font-size: 15.5px;
+      color: var(--mid);
+      line-height: 1.6;
+      margin-bottom: 48px;
     }
-    .talleres-track {
+
+    .prod-viewport { overflow: hidden; }
+    .prod-track {
       display: flex;
-      /* JS maneja la transición */
+      transition: transform .6s cubic-bezier(.4,0,.2,1);
     }
-    /* par de cards en desktop */
-    .taller-page {
+    .prod-slide {
       display: flex;
       gap: 24px;
       flex: 0 0 100%;
       width: 100%;
-      align-items: flex-start;
+    }
+    .prod-card {
+      flex: 1;
+      background: var(--salmon-card);
+      border-radius: 4px;
+      padding: 32px 24px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .prod-avatar {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #ddd;
+      margin: 0 auto 20px;
+      flex-shrink: 0;
+    }
+    .prod-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .prod-cat {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--dark);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .prod-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--dark);
+      text-align: center;
+      line-height: 1.25;
+    }
+
+    .prod-progress-bar {
+      width: 100%;
+      height: 3px;
+      background: rgba(0,0,0,.1);
+      margin-top: 28px;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .prod-progress-fill {
+      height: 100%;
+      background: var(--red);
+      border-radius: 2px;
+      transition: width linear;
+    }
+
+    /* ── TALLERES ─────────────────────────────────── */
+    .talleres-section { padding: 64px 0 56px; background: var(--cream); }
+
+    .talleres-viewport { overflow: hidden; }
+    .talleres-track {
+      display: flex;
+      transition: transform .6s cubic-bezier(.4,0,.2,1);
+    }
+    .taller-slide {
+      display: flex;
+      gap: 24px;
+      flex: 0 0 100%;
+      width: 100%;
+      align-items: stretch;
     }
     .taller-card {
       flex: 1;
-      background: var(--salmon);
+      background: var(--salmon-card);
       border-radius: 4px;
       overflow: hidden;
-      cursor: pointer;
-    }
-    .taller-img-wrap { position: relative; border: 6px solid var(--salmon); border-bottom: none; }
-    .taller-img-wrap img { width: 100%; height: 220px; object-fit: cover; display: block; }
-    .taller-body { padding: 18px 24px 0; }
-    .taller-header {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding-bottom: 18px;
-      cursor: pointer;
-      user-select: none;
+      flex-direction: column;
+    }
+    .taller-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      flex-shrink: 0;
+    }
+    .taller-body {
+      padding: 16px 20px 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
     }
     .taller-name {
       font-family: var(--font-mono);
-      font-size: 15px;
-      font-weight: 400;
+      font-size: 14px;
+      font-weight: 700;
       color: var(--dark);
-      letter-spacing: .03em;
       line-height: 1.4;
+      margin-bottom: 8px;
     }
-    .taller-toggle {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: var(--dark);
-      color: #fff;
-      font-size: 18px;
-      font-weight: 300;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: transform .3s, background .2s;
-      line-height: 1;
-    }
-    .taller-card.open .taller-toggle { transform: rotate(45deg); background: var(--red); }
     .taller-desc {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height .4s ease, padding .3s;
       font-size: 13px;
       line-height: 1.7;
       color: var(--dark);
     }
-    .taller-card.open .taller-desc { max-height: 300px; padding-bottom: 20px; }
 
-    .carousel-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 48px;
-      height: 48px;
-      background: var(--red);
+    /* ── DÓNDE ESTAMOS ───────────────────────────── */
+    .donde-section {
+      padding: 64px 0 72px;
+      background: var(--white);
+    }
+    .donde-inner h2 {
+      font-family: var(--font-mono);
+      font-size: clamp(22px, 3vw, 36px);
+      font-weight: 700;
+      letter-spacing: .08em;
+      color: var(--dark);
+      text-decoration: underline;
+      text-underline-offset: 6px;
+      text-decoration-color: var(--divider);
+      margin-bottom: 10px;
+    }
+    .donde-inner p { font-size: 15.5px; color: var(--mid); margin-bottom: 28px; }
+    .map-frame {
+      width: 100%;
+      height: 400px;
       border: none;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: #fff;
-      font-size: 20px;
-      transition: background .2s, transform .15s;
-      z-index: 10;
+      display: block;
+      border-radius: 4px;
     }
-    .carousel-arrow:hover { background: var(--red-dark); transform: translateY(-50%) scale(1.06); }
-    .carousel-arrow.prev { left: 8px; }
-    .carousel-arrow.next { right: 8px; }
 
-    /* ── SEGUNDO CTA ─────────────────────────────────────────── */
-    .cta-banner {
-      background: var(--cream);
-      border-top: 3px solid var(--salmon);
-      border-bottom: 3px solid var(--salmon);
-      padding: 72px 40px;
-      text-align: center;
-      margin-top: 0;
+    /* ── CUPOS LIMITADOS CTA ─────────────────────── */
+    .cupos-cta {
+      padding: 72px 0 80px;
+      background: var(--white);
     }
-    .cta-banner-eyebrow {
+    .cupos-eyebrow {
       font-family: var(--font-mono);
       font-size: 11px;
       font-weight: 700;
@@ -528,74 +474,93 @@
       color: var(--light);
       margin-bottom: 16px;
     }
-    .cta-banner h2 {
+    .cupos-cta h2 {
       font-family: var(--font-serif);
       font-style: italic;
       font-weight: 400;
-      font-size: clamp(28px, 4vw, 52px);
+      font-size: clamp(28px, 4vw, 50px);
       color: var(--dark);
       line-height: 1.15;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
-    .cta-banner p {
-      font-size: 17px;
-      line-height: 1.7;
+    .cupos-cta p {
+      font-size: 16px;
+      line-height: 1.75;
       color: var(--mid);
-      max-width: 560px;
-      margin: 0 auto 36px;
-    }
-    .cta-banner p strong { color: var(--dark); }
-    .btn-cta-big {
-      display: inline-block;
-      background: var(--red);
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 20px 48px;
-      font-family: var(--font-main);
-      font-size: 19px;
-      font-weight: 700;
-      cursor: pointer;
-      letter-spacing: .03em;
-      transition: background .2s, transform .15s;
       margin-bottom: 36px;
     }
-    .btn-cta-big:hover { background: var(--red-dark); transform: translateY(-2px); }
-    .cta-note {
+    .cupos-cta p strong { color: var(--dark); }
+    .cupos-note-bottom {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--mid);
+      margin-top: 18px;
+    }
+    .cupos-note-bottom strong { color: var(--dark); }
+
+    /* ── FOOTER ──────────────────────────────────── */
+    .footer { background: var(--red); padding: 56px 0 36px; }
+    .footer-inner {
+      max-width: var(--site-max-width);
+      margin: 0 auto;
+      padding: 0 var(--site-px);
+    }
+    .footer-warning {
+      font-family: var(--font-mono);
       font-size: 12px;
-      color: var(--light);
-      letter-spacing: .03em;
+      font-weight: 700;
+      line-height: 1.75;
+      color: rgba(255,255,255,.75);
+      text-align: center;
+      margin: 0 auto 40px;
+      letter-spacing: .05em;
     }
-    .cta-note strong { color: var(--red); }
-
-    /* ── MAPA ────────────────────────────────────────────────── */
-    .where-section { padding-bottom: 0; }
-    .map-wrap {
-      max-width: 900px;
-      margin: 24px auto 0;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: 0 4px 20px rgba(0,0,0,.08);
-      padding: 0 40px;
+    .footer-social-label {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 24px;
     }
-    .map-wrap iframe { width: 100%; height: 420px; border: none; display: block; }
-
-    /* ── FOOTER ──────────────────────────────────────────────── */
-    .footer { background: var(--red); padding: 52px 40px 32px; margin-top: 64px; }
-    .footer-lorem { font-family: var(--font-mono); font-size: 13px; line-height: 1.7; color: rgba(255,255,255,.7); text-align: center; max-width: 900px; margin: 0 auto 36px; font-weight: 700; }
-    .footer-social-label { text-align: center; font-size: 14px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; color: #fff; margin-bottom: 24px; }
-    .footer-social-icons { display: flex; align-items: center; justify-content: center; gap: 28px; margin-bottom: 32px; }
-    .social-icon { width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform .2s; }
-    .social-icon:hover { transform: scale(1.12); }
-    .social-icon svg { width: 44px; height: 44px; fill: #fff; }
-    .footer-logo { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 28px; }
-    .footer-links { display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; }
-    .footer-links a { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.75); transition: color .2s; }
+    .footer-icons {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 36px;
+    }
+    .s-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform .2s, opacity .2s; }
+    .s-icon:hover { transform: scale(1.12); opacity: .85; }
+    .s-icon svg { width: 42px; height: 42px; fill: #fff; }
+    .footer-logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+    .footer-logo-wrap img { height: 30px; width: auto; }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 4px 0;
+    }
+    .footer-links a {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.65);
+      padding: 0 8px;
+      transition: color .2s;
+    }
     .footer-links a:hover { color: #fff; }
-    .footer-links .sep { color: rgba(255,255,255,.35); font-size: 12px; }
+    .footer-links .sep { color: rgba(255,255,255,.3); font-size: 11px; }
 
-    /* ── MODAL ───────────────────────────────────────────────── */
+    /* ── MODAL ───────────────────────────────────── */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -616,9 +581,9 @@
       background: var(--cream);
       width: 100%;
       max-width: 540px;
-      border-radius: 8px;
+      border-radius: 6px;
       overflow: hidden;
-      box-shadow: 0 24px 64px rgba(0,0,0,.28);
+      box-shadow: 0 24px 64px rgba(0,0,0,.3);
       transform: translateY(24px) scale(.97);
       transition: transform .35s cubic-bezier(.22,.68,0,1.2);
       position: relative;
@@ -629,28 +594,28 @@
       padding: 28px 36px 24px;
       position: relative;
     }
-    .modal-header-pre {
+    .modal-pre {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 10px;
       letter-spacing: .18em;
       text-transform: uppercase;
-      color: rgba(255,255,255,.7);
+      color: rgba(255,255,255,.65);
       margin-bottom: 6px;
     }
     .modal-header h2 {
       font-family: var(--font-serif);
       font-style: italic;
       font-weight: 400;
-      font-size: 28px;
+      font-size: 26px;
       color: #fff;
-      line-height: 1.15;
+      line-height: 1.2;
     }
     .modal-close {
       position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 36px;
-      height: 36px;
+      top: 18px;
+      right: 18px;
+      width: 34px;
+      height: 34px;
       background: rgba(255,255,255,.15);
       border: none;
       border-radius: 50%;
@@ -659,8 +624,7 @@
       justify-content: center;
       cursor: pointer;
       color: #fff;
-      font-size: 20px;
-      line-height: 1;
+      font-size: 18px;
       transition: background .2s, transform .15s;
     }
     .modal-close:hover { background: rgba(255,255,255,.28); transform: rotate(90deg); }
@@ -668,9 +632,9 @@
     .form-group { margin-bottom: 20px; }
     .form-label {
       display: block;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
-      letter-spacing: .12em;
+      letter-spacing: .14em;
       text-transform: uppercase;
       color: var(--mid);
       margin-bottom: 7px;
@@ -678,7 +642,7 @@
     .form-input, .form-select {
       width: 100%;
       padding: 13px 16px;
-      border: 1.5px solid var(--border);
+      border: 1.5px solid rgba(0,0,0,.18);
       border-radius: 6px;
       font-family: var(--font-main);
       font-size: 15px;
@@ -703,7 +667,7 @@
       transform: translateY(-50%);
       color: var(--light);
       pointer-events: none;
-      font-size: 14px;
+      font-size: 13px;
     }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .btn-submit {
@@ -717,76 +681,52 @@
       font-size: 17px;
       font-weight: 700;
       cursor: pointer;
-      letter-spacing: .04em;
+      letter-spacing: .03em;
       margin-top: 8px;
       transition: background .2s, transform .15s;
     }
     .btn-submit:hover { background: #25a99d; transform: translateY(-2px); }
-    .btn-submit:active { transform: translateY(0); }
     .cupos-note {
       text-align: center;
       font-size: 12px;
       color: var(--light);
       margin-top: 14px;
-      letter-spacing: .03em;
     }
     .cupos-note strong { color: var(--red); }
-
-    /* ── MODAL SUCCESS ── */
     .modal-success { display: none; padding: 48px 36px; text-align: center; }
     .modal-success.visible { display: block; }
-    .success-icon { font-size: 56px; margin-bottom: 16px; }
+    .success-icon { font-size: 52px; margin-bottom: 14px; }
     .success-title {
       font-family: var(--font-serif);
       font-style: italic;
       font-size: 26px;
       color: var(--dark);
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
-    .success-msg { font-size: 15px; color: var(--mid); line-height: 1.6; }
-    .success-name-highlight {
-      display: inline-block;
-      background: var(--teal);
-      color: #fff;
-      font-weight: 700;
-      padding: 2px 10px;
-      border-radius: 4px;
-      font-style: normal;
-    }
-    .success-email-highlight {
-      color: var(--teal);
-      font-weight: 700;
-    }
+    .success-msg { font-size: 15px; color: var(--mid); line-height: 1.65; }
+    .success-name { background: var(--teal); color: #fff; font-weight: 700; padding: 2px 10px; border-radius: 4px; }
+    .success-email { color: var(--teal); font-weight: 700; }
 
-    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    /* ── RESPONSIVE ──────────────────────────────── */
     @media (max-width: 860px) {
-      .hero-content-row { grid-template-columns: 1fr; padding: 0 24px 56px; }
-      .hero-illustration { min-height: 280px; }
-      .starburst { width: 260px; height: 260px; }
-      .paulina-photo-placeholder { width: 200px; height: 260px; }
+      :root {
+        --site-px: 20px;
+      }
+      .hero-content-row { grid-template-columns: 1fr; padding-bottom: 48px; }
+      .hero-illustration { min-height: 300px; }
+      .hero-starburst { width: 280px; height: 280px; }
+      .hero-paulina { height: 300px; }
       .sobre-feria-inner { grid-template-columns: 1fr; gap: 36px; }
-      .productores-carousel-wrap { padding: 0 48px; }
-      .taller-page { flex-direction: column; gap: 16px; }
-      .talleres-carousel { padding: 0 56px; }
-      .section-banner { margin: 0 16px; }
-      .navbar { padding: 0 20px; }
-      .footer { padding: 48px 20px 28px; }
-      .footer-lorem { font-size: 11px; }
+      .taller-card { flex: 0 0 calc(80vw); }
       .form-row { grid-template-columns: 1fr; }
+      .modal-body { padding: 24px; }
       .modal-header { padding: 24px 24px 20px; }
-      .modal-body { padding: 24px 24px 28px; }
-      .sobre-feria { padding: 52px 24px; }
-      .cta-banner { padding: 52px 24px; }
-      /* En mobile: 1 card por página en productores */
-      .productor-page { flex-direction: column; gap: 16px; }
     }
     @media (max-width: 560px) {
       .hero-title { font-size: 36px; }
-      .hero-title-wrap { padding: 32px 20px 24px; }
-      .talleres-carousel { padding: 0 44px; }
-      .carousel-arrow { width: 36px; height: 36px; font-size: 16px; }
-      .section-banner-text { font-size: 14px; letter-spacing: .04em; }
-      .btn-cta-big { padding: 18px 32px; font-size: 16px; }
+      .taller-card { flex: 0 0 85vw; }
+      .prod-slide { flex-direction: column; }
+      .prod-card { flex: none; }
     }
   </style>
 </head>
@@ -802,354 +742,335 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-title-wrap">
-    <div>
-      <span class="edition-badge">
-        <span class="edition-badge-dot"></span>
-        Edición especial · Feria "Sabe la Tierra"
-      </span>
+    <div class="hero-title-wrap-inner">
+      <div>
+        <span class="edition-badge">Edición especial &nbsp;·&nbsp; Feria "Sabe la Tierra"</span>
+      </div>
+      <h1 class="hero-title">De la huerta a la olla</h1>
     </div>
-    <h1 class="hero-title">De la huerta a la olla</h1>
-    <p class="hero-subtitle">Parque Rivadavia · 24 y 25 de julio</p>
   </div>
 
-  <div class="hero-content-row">
+  <div class="container hero-content-row">
     <div>
-      <div class="hero-text">
-        <p>
-          <strong>¡Este 24 y 25 de julio</strong> no te perdas la oportunidad de hablar en persona con Paulina Cocina y que firme tu libro en la edición especial de la feria "Sabe la Tierra".
-        </p>
-        <p>
-          Solo tenés que apretar el botón y completar tus datos. Eso sí: <strong>cupos limitados</strong>, así que no le des muchas vueltas.
-        </p>
-      </div>
-      <button class="btn-send" onclick="openModal()">¡Reservá tu lugar!</button>
+      <p class="hero-text">¡Este 24 y 25 de julio ténes la posibilidad de que Paulina Cocine firme tu libro! No perdas la oportunidad y reserva tu cupo.</p>
+      <button class="btn-teal" onclick="openModal()">¡Reservá tu lugar!</button>
     </div>
 
     <div class="hero-illustration">
-      <img class="paulina-photo-placeholder" src="images/Paulina.png" alt="Paulina Cocina" loading="lazy">
-      <svg class="starburst" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+      <svg class="hero-starburst" viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <pattern id="dots" patternUnits="userSpaceOnUse" width="20" height="20">
-            <circle cx="10" cy="10" r="2.5" fill="rgba(255,255,255,0.35)"/>
+          <pattern id="dots" patternUnits="userSpaceOnUse" width="22" height="22">
+            <circle cx="11" cy="11" r="2.8" fill="rgba(255,255,255,0.32)"/>
           </pattern>
         </defs>
-        <polygon points="180,10 200,70 250,30 245,95 310,80 285,140 350,155 305,200 355,235 295,255 325,315 260,310 255,375 205,340 180,395 155,340 105,375 100,310 35,315 65,255 5,235 55,200 10,155 75,140 50,80 115,95 110,30 160,70" fill="#2EC4B6"/>
-        <polygon points="180,40 188,78 214,55 212,93 248,77 237,113 275,112 253,143 290,157 261,178 292,200 259,211 278,239 245,239 249,269 218,258 208,287 183,268 158,287 148,258 117,269 121,239 88,239 107,211 74,200 105,178 76,157 113,143 91,112 129,113 118,77 154,93 152,55 178,78" fill="#F07B6A" opacity="0.7"/>
-        <rect x="0" y="0" width="360" height="360" fill="url(#dots)" style="mix-blend-mode:overlay"/>
+        <polygon points="190,12 212,76 268,34 262,100 330,84 304,148 374,163 326,208 378,244 314,265 348,328 280,322 274,388 222,352 190,408 158,352 106,388 100,322 32,328 66,265 2,244 54,208 6,163 76,148 50,84 118,100 112,34 168,76" fill="#E8967A"/>
+        <polygon points="190,42 205,85 242,58 240,101 280,88 267,129 308,128 288,163 328,178 298,200 332,222 298,234 318,263 284,263 287,294 256,284 246,314 220,295 190,320 160,295 134,314 124,284 93,263 96,232 62,263 82,234 48,222 78,200 48,178 88,163 68,128 109,129 96,88 136,101 134,58 171,85" fill="#2EC4B6"/>
+        <polygon points="190,42 205,85 242,58 240,101 280,88 267,129 308,128 288,163 328,178 298,200 332,222 298,234 318,263 284,263 287,294 256,284 246,314 220,295 190,320 160,295 134,314 124,284 93,263 96,232 62,263 82,234 48,222 78,200 48,178 88,163 68,128 109,129 96,88 136,101 134,58 171,85" fill="url(#dots)"/>
       </svg>
+      <img class="hero-paulina"
+        src="images/Paulina.png"
+        alt="Paulina Cocina"
+        id="paulinaImg"
+        loading="lazy">
     </div>
   </div>
 </section>
 
-<!-- ── SECCIÓN 2: SOBRE LA FERIA ────────────────────────────── -->
+<div class="section-divider"></div>
+
+<!-- SOBRE LA FERIA -->
 <section class="sobre-feria">
-  <div class="sobre-feria-inner">
-    <div class="sobre-feria-left">
-      <div class="sf-eyebrow">¿Qué es esto?</div>
-      <h2>La feria "Sabe la Tierra", en edición especial con Paulina</h2>
-      <p>
-        Desde hace 14 años, este mercado es el punto de encuentro referente del consumo responsable. Su propuesta une a productores agroecológicos con la comunidad, ofreciendo alimentos libres de químicos y productos sustentables bajo los valores del comercio justo y el respeto por la tierra.
-      </p>
-      <p style="margin-top:18px;">
-        Con su estilo práctico y real, Paulina Cocina llega a la feria para celebrar la cocina consciente. Participará de una charla abierta sobre alimentación saludable y cerrará la jornada con una firma de libros, compartiendo cara a cara con quienes buscan comer mejor cada día.
-      </p>
-    </div>
-    <div class="sobre-feria-right">
-      <div class="sf-info-row">
-        <div class="sf-info-emoji">📅</div>
-        <div>
-          <div class="sf-info-label">Fecha</div>
-          <div class="sf-info-value">Jueves 24 y viernes 25 de julio de 2025</div>
-        </div>
+  <div class="container">
+    <div class="sobre-feria-inner">
+      <div class="sobre-feria-left">
+        <div class="sf-eyebrow">¿Qué es esto?</div>
+        <h2>La feria "Sabe la Tierra", en edición especial con Paulina</h2>
+        <p>Desde hace 14 años, este mercado es el <strong>punto de encuentro</strong> referente del <strong>consumo responsable</strong>. Su propuesta une a productores agroecológicos con la comunidad, ofreciendo <strong>alimentos libres de químicos</strong> y <strong>productos sustentables</strong> bajo los valores del comercio justo y el respeto por la tierra.</p>
+        <p>Con su estilo práctico y real, <strong>Paulina Cocina</strong> llega a la feria para celebrar la cocina consciente. Participará de una <strong>charla abierta</strong> sobre alimentación saludable y cerrará la jornada con una <strong>firma de libros</strong>, compartiendo cara a cara con quienes buscan comer mejor cada día.</p>
       </div>
-      <div class="sf-info-row">
-        <div class="sf-info-emoji">📍</div>
-        <div>
-          <div class="sf-info-label">Lugar</div>
-          <div class="sf-info-value">Mercado "Sabe la Tierra"<br>Parque Rivadavia, Buenos Aires</div>
+      <div class="sobre-feria-right">
+        <div class="sf-info-row">
+          <div class="sf-icon">📅</div>
+          <div>
+            <div class="sf-info-label">Fecha</div>
+            <div class="sf-info-value">Jueves 24 y viernes 25 de julio de 2026</div>
+          </div>
         </div>
-      </div>
-      <div class="sf-info-row">
-        <div class="sf-info-emoji">🕐</div>
-        <div>
-          <div class="sf-info-label">Horario</div>
-          <div class="sf-info-value">10:00 a 18:00 hs</div>
+        <div class="sf-info-row">
+          <div class="sf-icon">📍</div>
+          <div>
+            <div class="sf-info-label">Lugar</div>
+            <div class="sf-info-value">Mercado "Sabe la Tierra"<br>Parque Rivadavia, Buenos Aires</div>
+          </div>
         </div>
-      </div>
-      <div class="sf-info-row">
-        <div class="sf-info-emoji">📖</div>
-        <div>
-          <div class="sf-info-label">¿Qué vas a encontrar?</div>
-          <div class="sf-info-value">Firma de <em>Verdurísima</em>, charla con Paulina, productores, talleres y mucho más</div>
+        <div class="sf-info-row">
+          <div class="sf-icon">🕐</div>
+          <div>
+            <div class="sf-info-label">Horario</div>
+            <div class="sf-info-value">10:00 a 18:00 hs</div>
+          </div>
         </div>
-      </div>
-      <div class="sf-info-row">
-        <div class="sf-info-emoji">🎟️</div>
-        <div>
-          <div class="sf-info-label">Reserva</div>
-          <div class="sf-info-value">Cupos limitados — confirmación por email.</div>
+        <div class="sf-info-row">
+          <div class="sf-icon">📖</div>
+          <div>
+            <div class="sf-info-label">¿Qué vas a encontrar?</div>
+            <div class="sf-info-value">Firma de <em>Verdurísima</em>, charla con Paulina, productores, talleres y mucho más</div>
+          </div>
+        </div>
+        <div class="sf-info-row">
+          <div class="sf-icon">🎟️</div>
+          <div>
+            <div class="sf-info-label">Reserva</div>
+            <div class="sf-info-value">Cupos limitados — confirmación por email.</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<div class="section-divider"></div>
 
-<div class="accordion-section" style="padding-top: 40px;">
-  <div class="accordion-item">
-    <button class="accordion-trigger" id="acc1-btn" onclick="toggleAccordion('acc1')" aria-expanded="false">
-      <span>¿Cómo funciona la reserva?</span>
-      <span class="acc-icon" id="acc1-icon">+</span>
-    </button>
-    <div class="accordion-body" id="acc1">
-      <div class="accordion-body-inner">
-        <p>Completá el formulario con tus datos. Una vez enviado, vas a recibir un email de confirmación a la dirección que indicaste. Ese mail es tu comprobante de reserva, guardalo para presentar en el evento.</p>
-        <ul>
-          <li> La reserva es para acceder al espacio de firma con Paulina. La entrada a la feria es libre y gratuita.</li>
-          <li> Si no recibís el mail en 24 horas, revisá tu carpeta de spam o escribinos en nuestra sección de contacto.</li>
-          <li> Los cupos son limitados y se asignan por orden de llegada.</li>
-        </ul>
+<!-- ACCORDION -->
+<section class="accordion-section">
+  <div class="container">
+    <div class="accordion-item">
+      <button class="accordion-trigger" id="acc1-btn" onclick="toggleAcc('acc1')" aria-expanded="false">
+        <span>¿Cómo funciona la reserva?</span>
+        <span class="acc-icon" id="acc1-icon">+</span>
+      </button>
+      <div class="accordion-body" id="acc1">
+        <div class="accordion-body-inner">
+          <p>Completá el formulario con tus datos. Una vez enviado, vas a recibir un email de confirmación a la dirección que indicaste. Ese mail es tu comprobante de reserva, guardalo para presentar en el evento.</p>
+          <ul>
+            <li>La reserva es para acceder al espacio de firma con Paulina. La entrada a la feria es libre y gratuita.</li>
+            <li>Si no recibís el mail en 24 horas, revisá tu carpeta de spam o escribinos en nuestra sección de contacto.</li>
+            <li>Los cupos son limitados y se asignan por orden de llegada.</li>
+          </ul>
+          <button class="btn-red-block" onclick="openModal()">¡Reservá tu lugar!</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
+<div class="section-divider"></div>
 
-<div style="padding-top: 40px;">
-  <div class="section-banner" style="width: 100%; margin: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);">
-    <span class="section-banner-text">Nuestros productores</span>
-  </div>
-</div>
-
+<!-- PRODUCTORES -->
 <section class="productores-section">
-  <div class="productores-intro">
-    Te presentamos a la comunidad de productores y emprendedores del Mercado "Sabe la Tierra" Parque Rivadavia.
-  </div>
-  <div style="padding-top: 60px;">
-    <div class="productores-carousel-wrap">
-      <button class="prod-arrow prev" id="prodPrev" aria-label="Anterior">‹</button>
-      <div class="productores-viewport" id="productoresViewport">
-        <div class="productores-track" id="productoresTrack">
+  <div class="container">
+    <h2 class="section-heading">Nuestros productores.</h2>
+    <p class="section-sub">Te presentamos a la comunidad de productores y emprendedores del Mercado "Sabe la Tierra" Parque Rivadavia.</p>
 
-          <div class="productor-page">
-            <div class="productor-card">
-              <div class="productor-avatar-wrap"><img src="images/Pasteleria.webp" alt="La Cocina de Paula Picasso" loading="lazy"></div>
-              <div class="productor-cat">PASTELERÍA INTEGRAL</div>
-              <div class="productor-name">La Cocina de Paula Picasso</div>
+    <div class="prod-viewport" id="prodViewport">
+      <div>
+        <div class="prod-track" id="prodTrack">
+
+          <div class="prod-slide">
+            <div class="prod-card">
+              <div class="prod-avatar">
+                <img src="images/Pasteleria.webp" alt="La Cocina de Paula Picasso">
+              </div>
+              <div class="prod-cat">PASTELERÍA INTEGRAL</div>
+              <div class="prod-name">La Cocina de Paula Picasso</div>
             </div>
-            <div class="productor-card">
-              <div class="productor-avatar-wrap"><img src="images/Quesos.webp" alt="Alma y Luz Distribución" loading="lazy"></div>
-              <div class="productor-cat">ALMACÉN SALUDABLE</div>
-              <div class="productor-name">Alma y Luz Distribución</div>
-            </div>
-            <div class="productor-card">
-              <div class="productor-avatar-wrap"><img src="images/Secos.webp" alt="Hongo del Norte" loading="lazy"></div>
-              <div class="productor-cat">MIX DE CRUDOS Y COCINADOS</div>
-              <div class="productor-name">Hongo del Norte</div>
+            <div class="prod-card">
+              <div class="prod-avatar">
+                <img src="images/Quesos.webp" alt="Alma y Luz Distribución">
+              </div>
+              <div class="prod-cat">ALMACÉN SALUDABLE</div>
+              <div class="prod-name">Alma y Luz Distribución</div>
             </div>
           </div>
 
-          <div class="productor-page">
-            <div class="productor-card">
-              <div class="productor-avatar-wrap"><img src="images/Quesos.webp" alt="No es Soberbia" loading="lazy"></div>
-              <div class="productor-cat">QUESOS Y FIAMBRES AHUMADOS</div>
-              <div class="productor-name">No es Soberbia</div>
+          <div class="prod-slide">
+            <div class="prod-card">
+              <div class="prod-avatar">
+                <img src="images/Secos.webp" alt="Hongo del Norte">
+              </div>
+              <div class="prod-cat">MIX DE CRUDOS Y COCINADOS</div>
+              <div class="prod-name">Hongo del Norte</div>
             </div>
-            <div class="productor-card">
-              <div class="productor-avatar-wrap"><img src="images/Pasteleria.webp" alt="Pensando como una Acelga" loading="lazy"></div>
-              <div class="productor-cat">VERDULERÍA AGROECOLÓGICA</div>
-              <div class="productor-name">Pensando como una Acelga</div>
-            </div>
-            <div class="productor-card">
-              <div class="productor-avatar-wrap"><img src="images/Secos.webp" alt="Nandi Alimentos" loading="lazy"></div>
-              <div class="productor-cat">PANIFICADOS DE MASA MADRE</div>
-              <div class="productor-name">Nandi Alimentos</div>
-            </div>
-          </div>
-
-          <div class="productor-page">
-            <div class="productor-card">
-              <div class="productor-avatar-wrap"><img src="images/Pasteleria.webp" alt="El Granero del Sur" loading="lazy"></div>
-              <div class="productor-cat">HARINAS Y GRANOS</div>
-              <div class="productor-name">El Granero del Sur</div>
-            </div>
-            <div class="productor-card">
-              <div class="productor-avatar-wrap"><img src="images/Quesos.webp" alt="Tierra Viva" loading="lazy"></div>
-              <div class="productor-cat">CONSERVAS ARTESANALES</div>
-              <div class="productor-name">Tierra Viva</div>
-            </div>
-            <div class="productor-card">
-              <div class="productor-avatar-wrap"><img src="images/Secos.webp" alt="Raíz Común" loading="lazy"></div>
-              <div class="productor-cat">SEMILLAS Y BROTES</div>
-              <div class="productor-name">Raíz Común</div>
+            <div class="prod-card">
+              <div class="prod-avatar">
+                <img src="images/Quesos.webp" alt="No es Soberbia">
+              </div>
+              <div class="prod-cat">QUESOS Y FIAMBRES AHUMADOS</div>
+              <div class="prod-name">No es Soberbia</div>
             </div>
           </div>
 
-          <div class="productor-page">
-            <div class="productor-card">
-              <div class="productor-avatar-wrap"><img src="images/Pasteleria.webp" alt="La Herboristería" loading="lazy"></div>
-              <div class="productor-cat">HIERBAS Y ESPECIAS</div>
-              <div class="productor-name">La Herboristería</div>
+          <div class="prod-slide">
+            <div class="prod-card">
+              <div class="prod-avatar">
+                <img src="images/Pasteleria.webp" alt="Pensando como una Acelga">
+              </div>
+              <div class="prod-cat">VERDULERÍA AGROECOLÓGICA</div>
+              <div class="prod-name">Pensando como una Acelga</div>
             </div>
-            <div class="productor-card">
-              <div class="productor-avatar-wrap"><img src="images/Quesos.webp" alt="Manos de la Tierra" loading="lazy"></div>
-              <div class="productor-cat">LÁCTEOS ARTESANALES</div>
-              <div class="productor-name">Manos de la Tierra</div>
-            </div>
-            <div class="productor-card">
-              <div class="productor-avatar-wrap"><img src="images/Secos.webp" alt="Verde Vital" loading="lazy"></div>
-              <div class="productor-cat">SUPERFOODS Y NATURALES</div>
-              <div class="productor-name">Verde Vital</div>
+            <div class="prod-card">
+              <div class="prod-avatar">
+                <img src="images/Secos.webp" alt="Nandi Alimentos">
+              </div>
+              <div class="prod-cat">PANIFICADOS DE MASA MADRE</div>
+              <div class="prod-name">Nandi Alimentos</div>
             </div>
           </div>
+
+          <div class="prod-slide">
+            <div class="prod-card">
+              <div class="prod-avatar">
+                <img src="images/Pasteleria.webp" alt="El Granero del Sur">
+              </div>
+              <div class="prod-cat">HARINAS Y GRANOS</div>
+              <div class="prod-name">El Granero del Sur</div>
+            </div>
+            <div class="prod-card">
+              <div class="prod-avatar">
+                <img src="images/Quesos.webp" alt="Tierra Viva">
+              </div>
+              <div class="prod-cat">CONSERVAS ARTESANALES</div>
+              <div class="prod-name">Tierra Viva</div>
+            </div>
+          </div>
+
         </div>
       </div>
-      <button class="prod-arrow next" id="prodNext" aria-label="Siguiente">›</button>
     </div>
-    <div class="prod-dots" id="prodDots"></div>
+
+    <div class="prod-progress-bar">
+      <div class="prod-progress-fill" id="prodProgress"></div>
+    </div>
   </div>
 </section>
 
+<div class="section-divider"></div>
 
-<div style="padding: 48px 0 40px;">
-  <div class="section-banner" style="width: 100%; margin: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);">
-    <span class="section-banner-text">No te quedes sin participar,<br>¡conocé nuestros talleres!</span>
-  </div>
-</div>
-
-
+<!-- TALLERES -->
 <section class="talleres-section">
-  <div class="talleres-carousel">
-    <button class="carousel-arrow prev" id="tallPrev" aria-label="Anterior">‹</button>
-    <div class="talleres-viewport" id="talleresViewport">
-      <div class="talleres-track" id="talleresTrack">
+  <div class="container">
+    <h2 class="section-heading">Talleres disponibles.</h2>
+    <p class="section-sub" style="margin-bottom:32px;">No te quedes sin participar ¡Echales un ojo y escoge tus favoritos!</p>
 
-        <div class="taller-page">
-          <div class="taller-card" data-taller-id="0">
-            <div class="taller-img-wrap">
-              <img src="images/laboratorio.webp" alt="El Laboratorio" loading="lazy">
-            </div>
+    <div class="talleres-viewport" id="tallViewport">
+      <div class="talleres-track" id="tallTrack">
+
+        <div class="taller-slide">
+          <div class="taller-card">
+            <img class="taller-img"
+              src="images/laboratorio.webp"
+              alt="Taller de fermentación natural">
             <div class="taller-body">
-              <div class="taller-header">
-                <div class="taller-name">El Laboratorio</div>
-                <div class="taller-toggle">+</div>
-              </div>
-              <div class="taller-desc">
-                Un espacio de experimentación creativa donde la ciencia y la cocina se encuentran para transformar ingredientes locales en productos innovadores. Probaremos diferentes procesos y mezclas para entender la química detrás de lo que comemos.
-              </div>
+              <div class="taller-name">Taller de fermentacion natural</div>
+              <div class="taller-desc">Explora el fascinante mundo de los microorganismos aprendiendo técnicas para fermentar.</div>
             </div>
           </div>
-          <div class="taller-card" data-taller-id="1">
-            <div class="taller-img-wrap">
-              <img src="images/taller_quesos.webp" alt="Taller de Quesos" loading="lazy">
-            </div>
+          <div class="taller-card">
+            <img class="taller-img"
+              src="images/taller_quesos.webp"
+              alt="Taller de Quesos y Untables Veganos">
             <div class="taller-body">
-              <div class="taller-header">
-                <div class="taller-name">Taller de "Quesos" y Untables Veganos</div>
-                <div class="taller-toggle">+</div>
-              </div>
-              <div class="taller-desc">
-                Aprendé a elaborar alternativas vegetales deliciosas utilizando semillas, frutos secos y fermentos naturales. Crearemos texturas cremosas, firmes y saborizadas sin lácteos, ideales para sumar opciones nutritivas a tus comidas diarias.
-              </div>
+              <div class="taller-name">Taller de "Quesos" y Untables Veganos</div>
+              <div class="taller-desc">Aprendé a elaborar alternativas vegetales ideales para sumar opciones nutritivas a tus comidas diarias.</div>
             </div>
           </div>
         </div>
 
-        <div class="taller-page">
-          <div class="taller-card" data-taller-id="2">
-            <div class="taller-img-wrap">
-              <img src="images/fermentacion.webp" alt="Taller de Fermentación" loading="lazy">
-            </div>
+        <div class="taller-slide">
+          <div class="taller-card">
+            <img class="taller-img"
+              src="images/fermentacion.webp"
+              alt="Taller de Pan Artesanal">
             <div class="taller-body">
-              <div class="taller-header">
-                <div class="taller-name">Taller de Fermentación Natural</div>
-                <div class="taller-toggle">+</div>
-              </div>
-              <div class="taller-desc">
-                Explora el fascinante mundo de los microorganismos aprendiendo técnicas para fermentar vegetales de estación y crear bebidas probióticas.
-              </div>
+              <div class="taller-name">Taller de Pan Artesanal</div>
+              <div class="taller-desc">Descubrí el arte de la fermentación natural y aprendé a hacer pan con masa madre y harinas locales.</div>
             </div>
           </div>
-          <div class="taller-card" data-taller-id="3">
-            <div class="taller-img-wrap">
-              <img src="images/panaderia_vegana.webp" alt="Taller de Pan Artesanal" loading="lazy">
-            </div>
+          <div class="taller-card">
+            <img class="taller-img"
+              src="images/panaderia_vegana.webp"
+              alt="Laboratorio de Educación Alimentaria">
             <div class="taller-body">
-              <div class="taller-header">
-                <div class="taller-name">Taller de Pan Artesanal</div>
-                <div class="taller-toggle">+</div>
-              </div>
-              <div class="taller-desc">
-                Descubre el arte de la fermentación natural en este taller práctico donde aprenderás a crear pan con masa madre y harinas locales.
-              </div>
+              <div class="taller-name">Laboratorio de Educación Alimentaria</div>
+              <div class="taller-desc">Un espacio de experimentación creativa donde la ciencia y la cocina se encuentran para transformar ingredientes locales.</div>
             </div>
           </div>
         </div>
 
       </div>
     </div>
-    <button class="carousel-arrow next" id="tallNext" aria-label="Siguiente">›</button>
   </div>
 </section>
 
-<section class="where-section">
-  <div class="section-banner" style="width:100%;margin:0;clip-path:polygon(0 0,100% 0,100% 100%,0 100%);">
-    <span class="section-banner-text">¿DÓNDE ESTAMOS?</span>
-  </div>
-  <div class="map-wrap" style="max-width:900px;margin:32px auto 0;padding:0 40px;">
+<div class="section-divider"></div>
+
+<!-- DÓNDE ESTAMOS -->
+<section class="donde-section">
+  <div class="container donde-inner">
+    <h2>¿DÓNDE ESTAMOS?</h2>
+    <p>Encontranos en Parque Rivadavia, Buenos Aires.</p>
     <iframe
-      src="https://www.google.com/maps?cid=3509221663693581848&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYASAA&hl=es&source=embed&output=embed"
-      width="100%" height="420"
-      style="border:0;display:block;"
+      class="map-frame"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.278!2d-58.4425!3d-34.6196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccad3b2d01b5d%3A0x30ab4c4d0ddaf518!2sParque%20Rivadavia!5e0!3m2!1ses!2sar!4v1"
       allowfullscreen="" loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"
-      title="Ubicación del evento - Parque Rivadavia, Buenos Aires">
+      title="Ubicación Parque Rivadavia">
     </iframe>
   </div>
 </section>
 
-<section class="cta-banner">
-  <div class="cta-banner-eyebrow">¡Cupos limitados!</div>
-  <h2>¿Todavía no reservaste<br>tu lugar?</h2>
-  <p>
-    El 24 y 25 de julio, en el Mercado "Sabe la Tierra" del Parque Rivadavia. <strong>Reservá ahora</strong> y asegurate de conocer con Paulina.
-  </p>
-  <button class="btn-cta-big" onclick="openModal()">¡Reservá ahora!</button>
-  <p class="cta-note">⚠️ <strong>Cupos limitados.</strong> Registrate y verifica tu email para ver tu confirmación.</p>
+<div class="section-divider"></div>
+
+<!-- CTA CUPOS LIMITADOS -->
+<section class="cupos-cta">
+  <div class="container">
+    <div class="cupos-eyebrow">¡Cupos limitados!</div>
+    <h2>¿Todavía no reservaste tu lugar?</h2>
+    <p>El 24 y 25 de julio, en el Mercado "Sabe la Tierra" del Parque Rivadavia. <strong>Reservá ahora</strong> y asegurate de conocer con Paulina.</p>
+    <button class="btn-red-block" style="margin:0;" onclick="openModal()">¡Reservá ahora!</button>
+    <div class="cupos-note-bottom">
+      <span>⚠️</span>
+      <span><strong>Cupos limitados.</strong> Registrate y verifica tu email para ver tu confirmación.</span>
+    </div>
+  </div>
 </section>
 
+<!-- FOOTER -->
 <footer class="footer">
-  <p class="footer-lorem">
-    SE SUSPENDE EN CASO DE LLUVIA, VIENTO FUERTE Y/O FRÍO EXTREMO YA QUE ES AL AIRE LIBRE. MIRÁ EL MISMO DÍA DEL EVENTO LAS HISTORIAS DE NUESTRO INSTAGRAM PARA ACTUALIZAR LA INFO.
-  </p>
-  <div class="footer-social-label">¡SEGUIME EN LAS REDES!</div>
-  <div class="footer-social-icons">
-    <a href="https://www.youtube.com/@paulinacocina" class="social-icon" aria-label="YouTube">
-      <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-    </a>
-    <a href="https://www.instagram.com/paulinacocina/" class="social-icon" aria-label="Instagram">
-      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-    </a>
-    <a href="https://www.facebook.com/paulinacocina.net" class="social-icon" aria-label="Facebook">
-      <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-    </a>
-    <a href="https://www.tiktok.com/@paulinacocina" class="social-icon" aria-label="TikTok">
-      <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-    </a>
-    <a href="https://twitter.com/paulina_cocina" class="social-icon" aria-label="X (Twitter)">
-      <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-    </a>
-  </div>
-  <div class="footer-logo">
-    <img src="https://cdn.blog.paulinacocina.net/wp-content/uploads/2024/01/logo-paulina-cocina-white.svg" alt="Paulina Cocina" style="height: 32px; width: auto;">
-  </div>
-  <div class="footer-links">
-    <a href="#">MEDIAKIT</a><span class="sep">-</span>
-    <a href="#">CONTACTO</a><span class="sep">-</span>
-    <a href="#">POLÍTICA DE COOKIES</a><span class="sep">-</span>
-    <a href="#">POLÍTICA DE PRIVACIDAD</a><span class="sep">-</span>
-    <a href="#">AVISO LEGAL</a><span class="sep">-</span>
-    <a href="#">QUIÉN ES PAULINA</a>
+  <div class="footer-inner">
+    <p class="footer-warning">
+      SE SUSPENDE EN CASO DE LLUVIA Y/O VIENTO FUERTE Y/O FRÍO EXTREMO YA QUE ES AL AIRE LIBRE.<br>
+      MIRÁ EL MISMO DÍA DEL EVENTO LAS HISTORIAS DE NUESTRO INSTAGRAM PARA ACTUALIZAR LA INFO.
+    </p>
+    <div class="footer-social-label">SEGUIME EN LAS REDES!</div>
+    <div class="footer-icons">
+      <a href="https://www.youtube.com/@paulinacocina" class="s-icon" aria-label="YouTube">
+        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/paulinacocina/" class="s-icon" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+      </a>
+      <a href="https://www.facebook.com/paulinacocina.net" class="s-icon" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@paulinacocina" class="s-icon" aria-label="TikTok">
+        <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+      </a>
+      <a href="https://twitter.com/paulina_cocina" class="s-icon" aria-label="X (Twitter)">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+    </div>
+    <div class="footer-logo-wrap">
+      <img src="https://cdn.blog.paulinacocina.net/wp-content/uploads/2024/01/logo-paulina-cocina-white.svg" alt="Paulina Cocina">
+    </div>
+    <div class="footer-links">
+      <a href="#">MEDIAKIT</a><span class="sep"> - </span>
+      <a href="#">CONTACTO</a><span class="sep"> - </span>
+      <a href="#">POLÍTICA DE COOKIES</a><span class="sep"> - </span>
+      <a href="#">POLÍTICA DE PRIVACIDAD</a><span class="sep"> - </span>
+      <a href="#">AVISO LEGAL</a><span class="sep"> - </span>
+      <a href="#">QUIÉN ES PAULINA</a>
+    </div>
   </div>
 </footer>
 
@@ -1157,8 +1078,8 @@
 <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal" id="modal">
     <div class="modal-header">
-      <div class="modal-header-pre">Edición especial · "Sabe la Tierra"</div>
-      <h2 id="modalTitle">Visita la feria y<br>no te pierdas de la firma de Verdurisima </h2>
+      <div class="modal-pre">Edición especial · "Sabe la Tierra"</div>
+      <h2 id="modalTitle">Visita la feria y no te pierdas de la firma de <em>Verdurísima</em></h2>
       <button class="modal-close" onclick="closeModal()" aria-label="Cerrar">✕</button>
     </div>
     <div class="modal-body" id="modalFormBody">
@@ -1198,7 +1119,7 @@
         </div>
       </div>
       <button class="btn-submit" onclick="handleSubmit()">¡Reservá mi lugar!</button>
-      <p class="cupos-note">⚠️ <strong>Cupos limitados.</strong> Registrate y verifica tu email para ver tuconfirmación.</p>
+      <p class="cupos-note">⚠️ <strong>Cupos limitados.</strong> Registrate y verifica tu email para ver tu confirmación.</p>
     </div>
     <div class="modal-success" id="modalSuccess">
       <div class="success-icon">🎉</div>
@@ -1209,139 +1130,79 @@
 </div>
 
 <script>
-
-  function toggleAccordion(id) {
+  /* ── ACCORDION ─────────────────────────────── */
+  function toggleAcc(id) {
     const body = document.getElementById(id);
     const btn  = document.getElementById(id + '-btn');
     const icon = document.getElementById(id + '-icon');
-    const isOpen = body.classList.contains('open');
-    body.classList.toggle('open', !isOpen);
-    btn.classList.toggle('open', !isOpen);
-    btn.setAttribute('aria-expanded', String(!isOpen));
-  }
-  document.querySelectorAll('.taller-card').forEach(card => {
-    card.querySelector('.taller-header').addEventListener('click', function() {
-      card.classList.toggle('open');
-    });
-  });
-
-  function makePageCarousel({ trackId, prevId, nextId, dotsId, autoMs }) {
-    const track  = document.getElementById(trackId);
-    const prev   = document.getElementById(prevId);
-    const next   = document.getElementById(nextId);
-    const dotsEl = dotsId ? document.getElementById(dotsId) : null;
-
-    let pages      = [];
-    let current    = 0;
-    let isAnim     = false;
-    let autoTimer  = null;
-
-    function getPages() {
-      return Array.from(track.children);
-    }
-
-    function setPos(idx, animated) {
-      track.style.transition = animated
-        ? 'transform 1s cubic-bezier(0.4, 0, 0.2, 1)'
-        : 'none';
-      track.style.transform = `translateX(-${idx * 100}%)`;
-    }
-
-    function updateDots() {
-      if (!dotsEl) return;
-      dotsEl.querySelectorAll('.prod-dot').forEach((d, i) => {
-        d.classList.toggle('active', i === current);
-      });
-    }
-
-    function buildDots() {
-      if (!dotsEl) return;
-      dotsEl.innerHTML = '';
-      pages = getPages();
-      pages.forEach((_, i) => {
-        const d = document.createElement('button');
-        d.className = 'prod-dot' + (i === 0 ? ' active' : '');
-        d.setAttribute('aria-label', 'Página ' + (i + 1));
-        d.addEventListener('click', () => goTo(i));
-        dotsEl.appendChild(d);
-      });
-    }
-
-    function goTo(target) {
-      if (isAnim) return;
-      pages = getPages();
-      const total = pages.length;
-      target = ((target % total) + total) % total;
-      if (target === current) return;
-
-      const diff = Math.abs(target - current);
-      const isWrap = diff > 1 && (current === 0 || current === total - 1 || target === 0 || target === total - 1);
-
-      isAnim = true;
-
-      if (isWrap) {
-
-        track.style.transition = 'opacity 0.22s ease';
-        track.style.opacity = '0';
-        setTimeout(() => {
-  
-          setPos(target, false);
-          current = target;
-          updateDots();
-          /* Fade in */
-          track.style.transition = 'opacity 0.3s ease';
-          track.style.opacity = '1';
-          setTimeout(() => {
-            track.style.transition = '';
-            isAnim = false;
-          }, 320);
-        }, 240);
-      } else {
-
-        setPos(target, true);
-        current = target;
-        updateDots();
-        setTimeout(() => { isAnim = false; }, 580);
-      }
-    }
-
-    function goPrev() { goTo(current - 1); resetAuto(); }
-    function goNext() { goTo(current + 1); resetAuto(); }
-
-    function resetAuto() {
-      if (!autoMs) return;
-      clearInterval(autoTimer);
-      autoTimer = setInterval(goNext, autoMs);
-    }
-
-    prev && prev.addEventListener('click', goPrev);
-    next && next.addEventListener('click', goNext);
-
-
-    pages = getPages();
-    setPos(0, false);
-    buildDots();
-    resetAuto();
-
-    return { goTo, goPrev, goNext };
+    const open = body.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
   }
 
-  makePageCarousel({
-    trackId: 'productoresTrack',
-    prevId:  'prodPrev',
-    nextId:  'prodNext',
-    dotsId:  'prodDots',
-    autoMs:  4500,
-  });
+  /* ── CARRUSEL TALLERES ─────────────────────── */
+  (function() {
+    const track   = document.getElementById('tallTrack');
+    const slides  = Array.from(track.children);
+    const total   = slides.length;
+    const AUTO_MS = 4500;
+    let current   = 0;
+    let timer     = null;
 
-  makePageCarousel({
-    trackId: 'talleresTrack',
-    prevId:  'tallPrev',
-    nextId:  'tallNext',
-    dotsId:  null,
-    autoMs:  5000,
-  });
+    function go(idx) {
+      current = ((idx % total) + total) % total;
+      track.style.transition = 'transform .6s cubic-bezier(.4,0,.2,1)';
+      track.style.transform  = `translateX(-${current * 100}%)`;
+    }
 
+    function startAuto() {
+      clearInterval(timer);
+      timer = setInterval(() => go(current + 1), AUTO_MS);
+    }
+
+    go(0);
+    startAuto();
+  })();
+
+  /* ── CARRUSEL PRODUCTORES ──────────────────── */
+  (function() {
+    const track    = document.getElementById('prodTrack');
+    const slides   = Array.from(track.children);
+    const total    = slides.length;
+    const fill     = document.getElementById('prodProgress');
+    const AUTO_MS  = 4000;
+
+    let current = 0;
+    let timer   = null;
+    let fillTimer = null;
+
+    function go(idx) {
+      current = ((idx % total) + total) % total;
+      track.style.transition = 'transform .6s cubic-bezier(.4,0,.2,1)';
+      track.style.transform  = `translateX(-${current * 100}%)`;
+      startFill();
+    }
+
+    function startFill() {
+      fill.style.transition = 'none';
+      fill.style.width = '0%';
+      clearTimeout(fillTimer);
+      fillTimer = setTimeout(() => {
+        fill.style.transition = `width ${AUTO_MS}ms linear`;
+        fill.style.width = '100%';
+      }, 30);
+    }
+
+    function startAuto() {
+      clearInterval(timer);
+      timer = setInterval(() => go(current + 1), AUTO_MS);
+    }
+
+    go(0);
+    startAuto();
+  })();
+
+  /* ── MODAL ──────────────────────────────────── */
   function openModal() {
     document.getElementById('modalOverlay').classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -1354,9 +1215,15 @@
   function handleOverlayClick(e) {
     if (e.target === document.getElementById('modalOverlay')) closeModal();
   }
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeModal();
-  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  function highlight(id) {
+    const el = document.getElementById(id);
+    el.style.borderColor = 'var(--red)';
+    el.style.boxShadow   = '0 0 0 3px rgba(192,18,18,.15)';
+    el.focus();
+    setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; }, 2000);
+  }
 
   function handleSubmit() {
     const nombreVal   = document.getElementById('nombre').value.trim();
@@ -1365,31 +1232,23 @@
     const diaVal      = document.getElementById('dia').value;
 
     if (!nombreVal)                          { highlight('nombre');   return; }
-    if (!emailVal || !emailVal.includes('@')) { highlight('email');    return; }
-    if (!personasVal)                         { highlight('personas'); return; }
-    if (!diaVal)                              { highlight('dia');      return; }
+    if (!emailVal || !emailVal.includes('@')){ highlight('email');    return; }
+    if (!personasVal)                        { highlight('personas'); return; }
+    if (!diaVal)                             { highlight('dia');      return; }
 
     const primerNombre = nombreVal.split(' ')[0];
-    const diaTexto = diaVal === '24' ? 'jueves 24 de julio' : 'viernes 25 de julio';
+    const diaTexto     = diaVal === '24' ? 'jueves 24 de julio' : 'viernes 25 de julio';
 
     document.getElementById('successTitle').innerHTML =
-      '¡Listo, <span class="success-name-highlight">' + primerNombre + '</span>!';
+      '¡Listo, <span class="success-name">' + primerNombre + '</span>!';
     document.getElementById('successMsg').innerHTML =
       'Tu reserva para el <strong>' + diaTexto + '</strong> está confirmada.<br><br>' +
-      'En breve vas a recibir el comprobante en <span class="success-email-highlight">' + emailVal + '</span> ' +
+      'En breve vas a recibir el comprobante en <span class="success-email">' + emailVal + '</span> ' +
       'desde <strong>hola@paulinacocina.net</strong>.<br><br>' +
       '¡Nos vemos en el Mercado "Sabe la Tierra"!';
 
     document.getElementById('modalFormBody').style.display = 'none';
     document.getElementById('modalSuccess').classList.add('visible');
-  }
-
-  function highlight(id) {
-    const el = document.getElementById(id);
-    el.style.borderColor = 'var(--red)';
-    el.style.boxShadow   = '0 0 0 3px rgba(204,18,18,.15)';
-    el.focus();
-    setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; }, 2000);
   }
 </script>
 </body>
