@@ -445,7 +445,9 @@
       height: 400px;
       border: none;
       display: block;
-      border-radius: 4px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.15);
+      margin-top: 20px;
     }
 
     /* ── CUPOS LIMITADOS CTA ─────────────────────── */
@@ -706,28 +708,27 @@
       .modal-body { padding: 24px; }
       .modal-header { padding: 24px 24px 20px; }
 
-      /* Talleres mobile: 1 card visible + peek del siguiente */
+      /* Talleres mobile: 1 card visible */
       .talleres-section { overflow: hidden; }
       /* El container de talleres NO recorta el overflow horizontal */
       .talleres-section .container { overflow: visible; padding-right: 0; }
       /* El viewport recorta para mostrar solo una card */
       .talleres-viewport { overflow: hidden; }
-      /* Cada slide pasa a ser un row de cards individuales
-         El track se desplaza de a un ancho de card (80vw + gap) */
+      /* Cada slide tiene una card de ancho completo */
       .taller-slide {
-        gap: 16px;
+        gap: 0;
       }
-      /* Cada card: 80% de la pantalla, el 10% del siguiente se asoma */
+      /* Cada card: ancho completo de la pantalla */
       .taller-card {
-        flex: 0 0 80vw;
+        flex: 0 0 100vw;
         min-width: 0;
       }
     }
     @media (max-width: 560px) {
       .hero-title { font-size: 36px; }
-      .taller-card { flex: 0 0 82vw; }
       .prod-slide { flex-direction: column; }
       .prod-card { flex: none; }
+      .map-frame { height: 300px; }
     }
   </style>
 </head>
@@ -956,6 +957,9 @@
               <div class="taller-desc">Explora el fascinante mundo de los microorganismos aprendiendo técnicas para fermentar.</div>
             </div>
           </div>
+        </div>
+
+        <div class="taller-slide">
           <div class="taller-card">
             <img class="taller-img"
               src="images/taller_quesos.webp"
@@ -977,6 +981,9 @@
               <div class="taller-desc">Descubrí el arte de la fermentación natural y aprendé a hacer pan con masa madre y harinas locales.</div>
             </div>
           </div>
+        </div>
+
+        <div class="taller-slide">
           <div class="taller-card">
             <img class="taller-img"
               src="images/panaderia_vegana.webp"
@@ -1138,36 +1145,15 @@
     let current   = 0;
     let timer     = null;
 
-    function isMobile() { return window.innerWidth <= 860; }
-
     function getTotal() {
-      if (isMobile()) {
-        // En mobile contamos todas las cards individualmente
-        return track.querySelectorAll('.taller-card').length;
-      }
-      return track.children.length; // slides (pares)
-    }
-
-    function getShiftPx() {
-      if (isMobile()) {
-        // Desplazamos por el ancho de 1 card (80vw) + gap (16px)
-        const cardW = window.innerWidth * 0.80;
-        return current * (cardW + 16);
-      }
-      // Desktop: desplazamos por porcentaje del slide
-      return null;
+      return track.children.length;
     }
 
     function go(idx) {
       const total = getTotal();
       current = ((idx % total) + total) % total;
       track.style.transition = 'transform .6s cubic-bezier(.4,0,.2,1)';
-      if (isMobile()) {
-        const px = getShiftPx();
-        track.style.transform = `translateX(-${px}px)`;
-      } else {
-        track.style.transform = `translateX(-${current * 100}%)`;
-      }
+      track.style.transform = `translateX(-${current * 100}%)`;
     }
 
     function startAuto() {
