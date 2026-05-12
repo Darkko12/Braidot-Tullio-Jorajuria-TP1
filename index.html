@@ -710,8 +710,8 @@
       .talleres-section { overflow: hidden; }
       /* El container de talleres NO recorta el overflow horizontal */
       .talleres-section .container { overflow: visible; padding-right: 0; }
-      /* El viewport tampoco recorta — la sección lo hace */
-      .talleres-viewport { overflow: visible; }
+      /* El viewport recorta para mostrar solo una card */
+      .talleres-viewport { overflow: hidden; }
       /* Cada slide pasa a ser un row de cards individuales
          El track se desplaza de a un ancho de card (80vw + gap) */
       .taller-slide {
@@ -1002,7 +1002,7 @@
     <p>Encontranos en Parque Rivadavia, Buenos Aires.</p>
     <iframe
       class="map-frame"
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.278!2d-58.4425!3d-34.6196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccad3b2d01b5d%3A0x30ab4c4d0ddaf518!2sParque%20Rivadavia!5e0!3m2!1ses!2sar!4v1"
+      src="https://maps.app.goo.gl/KLmhnYagTfiBEwZv5"
       allowfullscreen="" loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"
       title="Ubicación Parque Rivadavia">
