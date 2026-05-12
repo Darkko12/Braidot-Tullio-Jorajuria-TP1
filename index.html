@@ -364,7 +364,8 @@
     }
 
     /* ── TALLERES ─────────────────────────────────── */
-    .talleres-section { padding: 64px 0 56px; background: var(--cream); }
+    /* FIX 1: padding simétrico en desktop (era 64px 0 56px → igualamos a 64px) */
+    .talleres-section { padding: 64px 0; background: var(--cream); }
 
     /* DESKTOP: 2 cards por slide, carousel por slides */
     .talleres-viewport { overflow: hidden; }
@@ -699,20 +700,22 @@
       .modal-header { padding: 24px 24px 20px; }
 
       /*
-       * TALLERES MOBILE — 1 card visible con peek del siguiente
-       *
-       * Estrategia: el .talleres-track se convierte en una fila plana
-       * donde todos los .taller-slide pierden su flex container y
-       * las .taller-card quedan como items directos alineados en fila.
-       *
-       * El section oculta el overflow para recortar las cards siguientes.
-       * El padding-right se elimina del container para que la card
-       * siguiente asome por el borde derecho de la pantalla.
+       * TALLERES MOBILE
+       * - El section oculta overflow para recortar la siguiente card
+       * - El container mantiene padding-left para el margen izquierdo
+       *   pero elimina padding-right para que la card siguiente asome
+       * - El track arranca desplazado desde el padding-left del container
+       * - Cada card ocupa (100vw - site-px-left - site-px-right / 2)
+       *   para que el siguiente card asoma ~20px desde el borde derecho
+       *   dando el mismo margen visual en ambos lados
        */
       .talleres-section {
         overflow: hidden;
+        /* FIX 2: mantener padding vertical simétrico en mobile también */
+        padding: 48px 0;
       }
       .talleres-section .container {
+        /* Mantenemos padding-left, eliminamos padding-right para el peek */
         padding-right: 0;
         overflow: visible;
       }
@@ -720,26 +723,34 @@
         overflow: visible;
       }
 
-      /* El track en mobile es una fila plana de cards sin gaps entre slides */
       .talleres-track {
-        /* Eliminamos el gap entre slides — cada card tiene su propio gap */
         gap: 0;
+        /* FIX 3: el track inicia con el margen izquierdo (--site-px)
+           para que la primera card arranque alineada con el texto */
+        padding-left: 0; /* el container ya aplica padding-left */
       }
 
-      /* Los slides en mobile no son "bloques" independientes sino
-         contenedores transparentes que dejan pasar sus cards al flujo */
       .taller-slide {
-        /* Mantenemos flex pero cada card tendrá ancho fijo */
+        /*
+         * FIX 4: gap entre cards para que no se toquen.
+         * El gap determina cuánto espacio hay entre la card visible
+         * y la que asoma por la derecha.
+         */
         gap: 16px;
-        /* Cada slide ocupa exactamente el ancho de sus cards:
-           2 cards × (82vw + 16px gap) — el último slide no suma gap extra */
         flex: 0 0 auto;
         width: auto;
       }
 
-      /* Cada card mide 82vw → el ~10% del siguiente card asoma */
+      /*
+       * FIX 5: Ancho de cada card = 100vw - margen-izq - margen-der-peek
+       * margen-izq = --site-px (20px)
+       * margen-der-peek = --site-px (20px) → mismo margen que el izquierdo
+       * Fórmula: 100vw - 20px - 20px - 16px(gap) = 100vw - 56px
+       * Así la card visible tiene 20px de margen en ambos lados,
+       * y la siguiente card asoma exactamente 20px por la derecha.
+       */
       .taller-card {
-        flex: 0 0 82vw;
+        flex: 0 0 calc(100vw - var(--site-px) * 2 - 16px);
         min-width: 0;
       }
 
@@ -1171,8 +1182,6 @@
     }
 
     function getTotal() {
-      // Desktop: número de slides (cada uno con 2 cards)
-      // Mobile:  número total de cards individuales
       return isMobile() ? getAllCards().length : track.children.length;
     }
 
@@ -1182,12 +1191,17 @@
       track.style.transition = 'transform .6s cubic-bezier(.4,0,.2,1)';
 
       if (isMobile()) {
-        // Cada card ocupa 82vw + 16px de gap entre cards
-        const cardW = window.innerWidth * 0.82;
+        /*
+         * FIX JS: en mobile cada card ocupa calc(100vw - 20px*2 - 16px).
+         * El offset = índice × (ancho de card + gap entre cards).
+         * El margen izquierdo lo pone el padding-left del container (20px),
+         * así que NO hay que sumarlo al offset: el track ya arranca desplazado.
+         */
+        const px    = 20; // --site-px en mobile
         const gap   = 16;
+        const cardW = window.innerWidth - px * 2 - gap;
         track.style.transform = `translateX(-${current * (cardW + gap)}px)`;
       } else {
-        // Desktop: avanza de a 1 slide completo (100% del viewport)
         track.style.transform = `translateX(-${current * 100}%)`;
       }
     }
