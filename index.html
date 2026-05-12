@@ -733,10 +733,9 @@
       .taller-slide {
         /*
          * FIX 4: gap entre cards para que no se toquen.
-         * El gap determina cuánto espacio hay entre la card visible
-         * y la que asoma por la derecha.
+         * El gap ahora es 33px para dar más separación en mobile.
          */
-        gap: 16px;
+        gap: 33px;
         flex: 0 0 auto;
         width: auto;
       }
@@ -744,13 +743,11 @@
       /*
        * FIX 5: Ancho de cada card = 100vw - margen-izq - margen-der-peek
        * margen-izq = --site-px (20px)
-       * margen-der-peek = --site-px (20px) → mismo margen que el izquierdo
-       * Fórmula: 100vw - 20px - 20px - 16px(gap) = 100vw - 56px
-       * Así la card visible tiene 20px de margen en ambos lados,
-       * y la siguiente card asoma exactamente 20px por la derecha.
+       * margen-der-peek = --site-px (20px)
+       * Fórmula: 100vw - 20px - 20px - 33px(gap) = 100vw - 73px
        */
       .taller-card {
-        flex: 0 0 calc(100vw - var(--site-px) * 2 - 16px);
+        flex: 0 0 calc(100vw - var(--site-px) * 2 - 33px);
         min-width: 0;
       }
 
