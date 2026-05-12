@@ -1,4 +1,4 @@
-  /* ── ACCORDION ─────────────────────────────── */
+
   function toggleAcc(id) {
     const body = document.getElementById(id);
     const btn  = document.getElementById(id + '-btn');
@@ -8,7 +8,7 @@
     btn.setAttribute('aria-expanded', String(open));
   }
 
-  /* ── CARRUSEL TALLERES ─────────────────────── */
+
   (function() {
     const track   = document.getElementById('tallTrack');
     const total   = track.children.length;
@@ -31,7 +31,7 @@
     startAuto();
   })();
 
-  /* ── CARRUSEL PRODUCTORES ──────────────────── */
+
   (function() {
     const track    = document.getElementById('prodTrack');
     const slides   = Array.from(track.children);
@@ -50,6 +50,7 @@
       startFill();
     }
 
+    
     function startFill() {
       fill.style.transition = 'none';
       fill.style.width = '0%';
@@ -60,6 +61,7 @@
       }, 30);
     }
 
+    
     function startAuto() {
       clearInterval(timer);
       timer = setInterval(() => go(current + 1), AUTO_MS);
@@ -69,7 +71,7 @@
     startAuto();
   })();
 
-  /* ── MODAL ──────────────────────────────────── */
+
   function openModal() {
     document.getElementById('modalOverlay').classList.add('active');
     document.body.style.overflow = 'hidden';
